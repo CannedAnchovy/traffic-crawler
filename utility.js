@@ -36,18 +36,18 @@ function getDateByDayLeft(daysLeft) {
  */
 function getDateFromStrMonth(year, monthString, date) {
   let month;
-  if (monthString === 'Jan') month = 1;
-  else if (monthString === 'Feb') month = 2;
-  else if (monthString === 'Mar') month = 3;
-  else if (monthString === 'Apr') month = 4;
-  else if (monthString === 'May') month = 5;
-  else if (monthString === 'Jun') month = 6;
-  else if (monthString === 'Jul') month = 7;
-  else if (monthString === 'Aug') month = 8;
-  else if (monthString === 'Sep') month = 9;
-  else if (monthString === 'Oct') month = 10;
-  else if (monthString === 'Nov') month = 11;
-  else if (monthString === 'Dec') month = 12;
+  if (monthString === 'JANUARY') month = 1;
+  else if (monthString === 'FEBRUARY') month = 2;
+  else if (monthString === 'MARCH') month = 3;
+  else if (monthString === 'APRIL') month = 4;
+  else if (monthString === 'MAY') month = 5;
+  else if (monthString === 'JUNE') month = 6;
+  else if (monthString === 'JULY') month = 7;
+  else if (monthString === 'AUGUST') month = 8;
+  else if (monthString === 'SEPTEMBER') month = 9;
+  else if (monthString === 'OCTOBER') month = 10;
+  else if (monthString === 'NOVEMBER') month = 11;
+  else if (monthString === 'DECEMBER') month = 12;
 
   return getFormatDate(new Date(year, month-1, date));
 }

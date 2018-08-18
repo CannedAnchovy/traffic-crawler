@@ -2,7 +2,7 @@ const {Builder, By} = require('selenium-webdriver');
 const util = require('util');
 const fs = require('fs');
 const writeFile = util.promisify(fs.writeFile);
-const {getMillion, getDateByDayLeft, getDateFromStrMonth} = require('./utility');
+const {getMillion, getDateByDayLeft, getDateFromStrMonth} = require('../utility');
 
 /**
  * Main function for crawling ICO event information.
@@ -100,7 +100,7 @@ async function crawlICOEventFromICODrop(driver) {
       // this part parse this two kinds of date format into YYYY/MM/DD
       if (icoEvent.status === 'active') {
         dateString = await dateElement.findElement(By.css('strong')).getText();
-        if (dateString === 'is active') dateString = 'TBA';
+        if (dateString === 'IS ACTIVE') dateString = 'TBA';
         else {
           dateString = (dateString.split(' '))[0];
           dateString = getDateByDayLeft(Number(dateString));
@@ -115,7 +115,6 @@ async function crawlICOEventFromICODrop(driver) {
         dateString = getDateFromStrMonth(year, dateArray[1], Number(dateArray[0]));
         lastMonthString = dateArray[1];
       }
-
       icoEvent.endDate = dateString;
     } catch (e) {
       console.error(e);
