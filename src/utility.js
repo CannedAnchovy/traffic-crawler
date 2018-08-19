@@ -73,4 +73,13 @@ function getFormatDate(date) {
   return [year, (month>9 ? '' : '0') + month, (day>9 ? '' : '0') + day].join('/');
 }
 
-export {getMillion, getDateByDayLeft, getDateFromStrMonth};
+async function sleep(time) {
+  return new Promise((resolve) => {
+    console.log('Im gonna sleep for ' + time + 'ms.');
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}
+
+export {getMillion, getDateByDayLeft, getDateFromStrMonth, sleep};

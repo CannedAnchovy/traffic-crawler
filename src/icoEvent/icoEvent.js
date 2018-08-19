@@ -1,9 +1,10 @@
 import {Builder, By} from 'selenium-webdriver';
-import util from 'util';
 import fs from 'fs';
+import util from 'util';
+import {signInSimilarWeb, getVisitSource, setTimeInterval} from '../similarweb';
 import {getMillion, getDateByDayLeft, getDateFromStrMonth} from '../utility';
 
-
+const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
 /**
@@ -11,24 +12,28 @@ const writeFile = util.promisify(fs.writeFile);
  */
 async function main() {
   let driver = await new Builder().forBrowser('chrome').build();
-  crawlICOEvent(driver);
+  // let data = await crawlICOEvent(driver);
+  // await writeFile('data/icoEvent(icodrops)', JSON.stringify(data));
+  // let rawData = await readFile('data/icoEvent(icodrops)', 'utf8');
+  // let icoEventList = JSON.parse(rawData);
+  let icoEventList = {data: ""};
+  await crawlICOEventTraffic(driver, icoEventList.data);
+  // await driver.close();
 };
 
 /**
  * Crawl ICO event.
  * @param {object} driver Selenium web driver.
- * @return {array} An array containing ICO event list and its information.
+ * @return {object} An object containing current data status and ICO event list and its information.
  */
 async function crawlICOEvent(driver) {
   let icoEventList = await crawlICOEventFromICODrop(driver);
-  let data = {
+  return {
     from: 'icodrops',
     getEventList: true,
     getTraffic: false,
     data: icoEventList
-  }
-  await writeFile('../../data/icoEvent(icodrops).json', JSON.stringify(data));
-  return {};
+  };
 }
 
 /**
@@ -123,6 +128,17 @@ async function crawlICOEventFromICODrop(driver) {
     }
   }
   return icoEventList;
+}
+
+/**
+ * Crawl ICO event traffic from similarweb and modify icoEventList directly.
+ * @param {object} driver Selenium web driver.
+ * @param {array} icoEventList An array containing ICO event information.
+ */
+async function crawlICOEventTraffic(driver, icoEventList) {
+  await signInSimilarWeb(driver);
+  await setTimeInterval(driver, 'Last 6 Months');
+  console.log(await getVisitSource(driver));
 }
 
 export default main;
