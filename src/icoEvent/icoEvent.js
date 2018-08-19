@@ -1,16 +1,18 @@
-const {Builder, By} = require('selenium-webdriver');
-const util = require('util');
-const fs = require('fs');
+import {Builder, By} from 'selenium-webdriver';
+import util from 'util';
+import fs from 'fs';
+import {getMillion, getDateByDayLeft, getDateFromStrMonth} from '../utility';
+
+
 const writeFile = util.promisify(fs.writeFile);
-const {getMillion, getDateByDayLeft, getDateFromStrMonth} = require('../utility');
 
 /**
  * Main function for crawling ICO event information.
  */
-(async function main() {
+async function main() {
   let driver = await new Builder().forBrowser('chrome').build();
   crawlICOEvent(driver);
-})();
+};
 
 /**
  * Crawl ICO event.
@@ -25,7 +27,7 @@ async function crawlICOEvent(driver) {
     getTraffic: false,
     data: icoEventList
   }
-  await writeFile('./icoEvent(icodrops).json', JSON.stringify(data));
+  await writeFile('../../data/icoEvent(icodrops).json', JSON.stringify(data));
   return {};
 }
 
@@ -122,3 +124,5 @@ async function crawlICOEventFromICODrop(driver) {
   }
   return icoEventList;
 }
+
+export default main;

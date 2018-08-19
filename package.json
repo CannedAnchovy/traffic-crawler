@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "rm -r lib/ && ./node_modules/.bin/babel src --out-dir lib/",
+    "start": "npm run build && node lib/icoEvent/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,10 @@
     "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.6",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.9.1"
   }
