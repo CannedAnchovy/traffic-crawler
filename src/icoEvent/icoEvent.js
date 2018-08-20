@@ -1,7 +1,7 @@
 import {Builder, By} from 'selenium-webdriver';
 import fs from 'fs';
 import util from 'util';
-import {signInSimilarWeb, getVisitSource, setTimeInterval} from '../similarweb';
+import {signInSimilarWeb, getTraffic} from '../similarweb';
 import {getMillion, getDateByDayLeft, getDateFromStrMonth} from '../utility';
 
 const readFile = util.promisify(fs.readFile);
@@ -12,11 +12,12 @@ const writeFile = util.promisify(fs.writeFile);
  */
 async function main() {
   let driver = await new Builder().forBrowser('chrome').build();
-  // let data = await crawlICOEvent(driver);
-  // await writeFile('data/icoEvent(icodrops)', JSON.stringify(data));
-  // let rawData = await readFile('data/icoEvent(icodrops)', 'utf8');
-  // let icoEventList = JSON.parse(rawData);
-  let icoEventList = {data: ""};
+  /*let icoEventList = await crawlICOEvent(driver);
+  await writeFile('data/icoEvent(icodrops)', JSON.stringify(data));*/
+
+  let rawData = await readFile('data/icoEvent(icodrops)', 'utf8');
+  let icoEventList = JSON.parse(rawData);
+  icoEventList.data = icoEventList.data.slice(0, 10);
   await crawlICOEventTraffic(driver, icoEventList.data);
   // await driver.close();
 };
@@ -123,6 +124,7 @@ async function crawlICOEventFromICODrop(driver) {
         lastMonthString = dateArray[1];
       }
       icoEvent.endDate = dateString;
+      icoEvent.traffic = {success: false};
     } catch (e) {
       console.error(e);
     }
@@ -136,9 +138,24 @@ async function crawlICOEventFromICODrop(driver) {
  * @param {array} icoEventList An array containing ICO event information.
  */
 async function crawlICOEventTraffic(driver, icoEventList) {
+  let icoEvent;
+
   await signInSimilarWeb(driver);
-  await setTimeInterval(driver, 'Last 6 Months');
-  console.log(await getVisitSource(driver));
+
+  for(let i=0; i<icoEventList.length; i++) {
+    icoEvent = icoEventList[i];
+    icoEvent.traffic = await getTraffic(driver, icoEvent.url.split('/')[2]);
+  }
+  for(let i=0; i<icoEventList.length; i++) {
+    icoEvent = icoEventList[i];
+    if(icoEvent.traffic.success) continue;
+    icoEvent.traffic = await getTraffic(driver, icoEvent.url.split('/')[2]);
+  }
+  for(let i=0; i<icoEventList.length; i++) {
+    icoEvent = icoEventList[i];
+    if(icoEvent.traffic.success) continue;
+    icoEvent.traffic = await getTraffic(driver, icoEvent.url.split('/')[2]);
+  }
 }
 
 export default main;

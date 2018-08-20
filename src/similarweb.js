@@ -2,6 +2,8 @@ import {By, until, Key} from 'selenium-webdriver'
 import config from '../similarweb.json';
 import {sleep} from './utility';
 
+const waitTime = 20000;
+
 /**
  * Sign in to similarweb with username and password in config
  * @param {object} driver Selenium web driver.
@@ -26,13 +28,99 @@ export async function signInSimilarWeb(driver) {
 }
 
 /**
+ * Get domain traffic info
+ * 1. total visit
+ * 2. marketMix
+ * 3. ranks
+ * @param {object} driver Selenium web driver.
+ * @param {string} domain domain name which you want to get traffic
+ * @return {object} traffic data
+ */
+export async function getTraffic(driver, domain) {
+  let traffic = {
+    success: true,
+    totalVisit: '',
+    marketingMix: {},
+    geographyRank: [],
+    referralRank: [],
+    socialRank: [],
+    adRank: []
+  };
+
+  //
+  try {
+    await searchDomain(driver, domain);
+    await setTimeInterval(driver, 'Last 6 Months');
+
+    // get totalVisit
+    try {
+      traffic.totalVisit = await getTotalVisit(driver);
+    } catch(e) {
+      traffic.success = false;
+      console.error(e);
+    }
+
+    // get marketingMix
+    try {
+      traffic.marketingMix = await getMarketingMix(driver);
+    } catch(e) {
+      traffic.success = false;
+      console.error(e);
+    }
+
+    // get gergraphy rank
+    try {
+      traffic.geographyRank = await getGeographyRanks(driver);
+    } catch(e) {
+      traffic.success = false;
+      console.error(e);
+    }
+
+    // get referral rank
+    try {
+      traffic.referralRank = await getReferralRanks(driver);
+    } catch(e) {
+      traffic.success = false;
+      console.error(e);
+    }
+
+    // get social rank
+    try {
+      traffic.socialRank = await getSocialRanks(driver);
+    } catch(e) {
+      traffic.success = false;
+      console.error(e);
+    }
+
+    // get ad rank
+    try {
+      traffic.adRank = await getAdRanks(driver);
+    } catch(e) {
+      traffic.success = false;
+      console.error(e);
+    }
+
+    // get back to website overview
+    await clickSideNav(driver, 0, 0);
+
+  } catch (e) {
+    traffic.success = false;
+    console.error(e);
+  }
+  console.log(traffic);
+  return traffic;
+}
+
+/**
  * Get domain's total visit
  * @param {object} driver Selenium web driver.
  * @return {string} the total visit string
  */
-export async function getTotalVisit(driver) {
+async function getTotalVisit(driver) {
+  console.log('Getting total visit...');
+
   await clickSideNav(driver, 1, 0);
-  let containerElement = driver.wait(until.elementLocated(By.css('div.single-metric-visits-with-share')), 10000);
+  let containerElement = driver.wait(until.elementLocated(By.css('div.single-metric-visits-with-share')), waitTime);
   let visitElement = containerElement.findElement(By.css('div.big-text.u-blueMediumMedium'));
   return await visitElement.getText();
 }
@@ -42,14 +130,29 @@ export async function getTotalVisit(driver) {
  * @param {object} driver Selenium web driver.
  * @return {object} domain's visit source and sources' percentage
  */
-export async function getVisitSource(driver) {
+async function getMarketingMix(driver) {
+  console.log('Getting marketingMix...');
+
+  await clickSideNav(driver, 2, 0);
+
+  // get chart and buttons
+  let chartElement = await driver.wait(until.elementLocated(By.css('div.swWidget-frame.swWidget-frame--noBottomPadding')), waitTime);
+  let buttonElements = await chartElement.findElements(By.css('button.circle-item'));
+  let text;
+  let marketingMix = {
+    channelTraffic: '',
+    percentage: [],
+    number: []
+  };
+
+  // get channel total traffic
+  let channelTrafficElement = await driver.wait(until.elementLocated(By.css('div.u-blueMediumMedium.big-number')));
+  marketingMix.channelTraffic = await channelTrafficElement.getText();
 
   // get percentage elements
-  await clickSideNav(driver, 2, 0);
-  let containerElement = await driver.wait(until.elementLocated(By.css('div.highcharts-data-labels')), 10000);
+  await buttonElements[0].click();
+  let containerElement = await driver.wait(until.elementLocated(By.css('div.highcharts-data-labels')), waitTime);
   let percentageElements = await containerElement.findElements(By.css('span'));
-  let percentageArray = [];
-  let text;
 
   // busy waiting until percentage span is loaded
   while(true) {
@@ -58,34 +161,195 @@ export async function getVisitSource(driver) {
   }
 
   for(let i=0; i<percentageElements.length; i++) {
-    percentageArray.push(await percentageElements[i].getText());
+    marketingMix.percentage.push(await percentageElements[i].getText());
   }
 
-  return {
-    direct: percentageArray[0],
-    referrals: percentageArray[2],
-    social: percentageArray[3],
-    organic: percentageArray[4],
-    ads: percentageArray[6]
-  };
+  // get number elements
+  await buttonElements[1].click();
+  containerElement = await driver.wait(until.elementLocated(By.css('div.highcharts-data-labels')), waitTime);
+  let numberElements = await containerElement.findElements(By.css('span'));
+
+  // busy waiting until percentage span is loaded
+  while(true) {
+    text = await numberElements[0].getText();
+    if(text !== '') break;
+  }
+
+  for(let i=0; i<percentageElements.length; i++) {
+    marketingMix.number.push(await numberElements[i].getText());
+  }
+
+  return marketingMix;
 }
 
 /**
- * Set the time interval in similarweb
+ * Get the geography ranks (top 10)
+ * @param {object} driver Selenium web driver.
+ * @return {array} An array containing ranks name and percentage
+ */
+async function getGeographyRanks(driver) {
+  console.log('Getting geography rank...');
+
+  await clickSideNav(driver, 1, 1);
+  let ranks = [];
+  let tableElement;
+  let countryElements;
+  let percentageElements;
+
+  try {
+    tableElement = await driver.wait(until.elementLocated(By.css('div.swReactTable-wrapper')), waitTime);
+    countryElements = await tableElement.findElements(By.css('div.country-text'));
+    percentageElements = await tableElement.findElements(By.css('span.min-value'));
+  } catch (e) {
+    console.error(e);
+    return ranks;
+  }
+
+  let ranksNum = (countryElements.length > 10)? 10 : countryElements.length;
+  for(let i=0; i<ranksNum; i++) {
+    let rank = {};
+    rank.name = await countryElements[i].getText();
+    rank.percentage = await percentageElements[i].getText();
+
+    ranks.push(rank);
+  }
+  return ranks;
+}
+
+/**
+ * Get the referral ranks (top 10)
+ * @param {object} driver Selenium web driver.
+ * @return {array} An array containing ranks name and percentage
+ */
+async function getReferralRanks(driver) {
+  console.log('Getting referral rank...');
+
+  await clickSideNav(driver, 2, 1);
+  let ranks = [];
+  let tableElement;
+  let siteElements;
+  let percentageElements;
+
+  try {
+    tableElement = await driver.wait(until.elementLocated(By.css('div.swReactTable-wrapper')), waitTime);
+    siteElements = await tableElement.findElements(By.css('a.cell-clickable'));
+    percentageElements = await tableElement.findElements(By.css('span.min-value'));
+  } catch (e) {
+    console.error(e);
+    return ranks;
+  }
+
+  let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
+  for(let i=0; i<ranksNum; i++) {
+    let rank = {};
+    rank.name = await siteElements[i].getText();
+    rank.percentage = await percentageElements[i].getText();
+
+    ranks.push(rank);
+  }
+  return ranks;
+}
+
+/**
+ * Get the referral ranks (top 10)
+ * @param {object} driver Selenium web driver.
+ * @return {array} An array containing ranks name and percentage
+ */
+async function getSocialRanks(driver) {
+  console.log('Getting social rank...');
+
+  await clickSideNav(driver, 2, 3);
+  let ranks = [];
+  let element;
+  let siteElements;
+  let percentageElements;
+
+  try {
+    // wait for site element to load
+    element = await driver.wait(until.elementLocated(By.css('span.swTable-content.text-select')), waitTime);
+    await driver.wait(until.elementIsEnabled(element));
+
+    // get site elements
+    siteElements = await driver.findElements(By.css('span.swTable-content.text-select'));
+
+    // wait for percentage element to load
+    element = await driver.wait(until.elementLocated(By.css('span.min-value')), waitTime);
+    await driver.wait(until.elementIsEnabled(element));
+
+    // get percentage elements
+    percentageElements = await driver.findElements(By.css('span.min-value'));
+  } catch (e) {
+    console.error(e);
+    return ranks;
+  }
+
+  let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
+  for(let i=0; i<ranksNum; i++) {
+    let rank = {};
+    rank.name = await siteElements[i].getText();
+    rank.percentage = await percentageElements[i].getText();
+
+    ranks.push(rank);
+  }
+  return ranks;
+}
+
+/**
+ * Get the ad ranks (top 5)
+ * @param {object} driver Selenium web driver.
+ * @return {array} An array containing ranks name and percentage
+ */
+async function getAdRanks(driver) {
+  console.log('Getting ad rank...');
+
+  await clickSideNav(driver, 2, 4);
+  let ranks = [];
+  let element;
+  let siteElements;
+  let percentageElements;
+
+  try {
+    // wait for site element to load
+    element = await driver.wait(until.elementLocated(By.css('a.cell-clickable')), waitTime);
+    await driver.wait(until.elementIsEnabled(element));
+
+    // get site
+    siteElements = await driver.findElements(By.css('a.cell-clickable'));
+
+    // wait for percentage element to load
+    element = await driver.wait(until.elementLocated(By.css('span.min-value')), waitTime);
+    await driver.wait(until.elementIsEnabled(element));
+
+    // get percentage
+    percentageElements = await driver.findElements(By.css('span.min-value'));
+  } catch (e) {
+    console.error(e);
+    return ranks;
+  }
+
+  for(let i=0; i<siteElements.length; i++) {
+    let rank = {};
+    rank.name = await siteElements[i].getText();
+    rank.percentage = await percentageElements[i].getText();
+
+    ranks.push(rank);
+  }
+  return ranks;
+}
+
+/**
+ * Set the time interval in similarweb (can only be used after searchDomain())
  * @param {object} driver Selenium web driver.
  * @param {string} timeString The time string (display text) in the dropdown list.
  */
-export async function setTimeInterval(driver, timeString) {
-  // get to random domain search result
-  console.log('go kfc');
-  await searchDomain(driver, 'kfc.com');
+async function setTimeInterval(driver, timeString) {
 
   // click time interval dropdown button
   let timeIntervalElement = await driver.wait(until.elementLocated(By.css('div.DropdownButton')));
   await timeIntervalElement.click();
 
   // select time interval
-  let durationContainer = await driver.wait(until.elementLocated(By.css('div.DurationSelector-container')), 10000);
+  let durationContainer = await driver.wait(until.elementLocated(By.css('div.DurationSelector-container')), waitTime);
   let selectTimeElement = await durationContainer.findElement(By.css('div.DropdownButton'));
   await selectTimeElement.click();
 
@@ -93,7 +357,7 @@ export async function setTimeInterval(driver, timeString) {
   let itemIndex = await getElementIndex(dropdownItems, timeString);
   await dropdownItems[itemIndex].click();
   await driver.findElement(By.css('button.Button.DurationSelector-action-submit')).click();
-  await driver.wait(until.elementLocated(By.css('div.website-header-title')), 10000);
+  await driver.wait(until.elementLocated(By.css('div.website-header-title')), waitTime);
 }
 
 /**
@@ -102,12 +366,14 @@ export async function setTimeInterval(driver, timeString) {
  * @param {string} domain
  */
 async function searchDomain(driver, domain) {
+  console.log('Searching domain: ' + domain);
+
   let searchElement = await driver.findElement(By.css('input.universalInput-input'));
   await searchElement.click();
   await searchElement.sendKeys(domain);
-  await sleep(1000);
+  await sleep(3000);
   await searchElement.sendKeys(Key.ENTER);
-  await driver.wait(until.elementLocated(By.css('div.website-header-title')), 10000);
+  await driver.wait(until.elementLocated(By.css('div.website-header-title')), waitTime);
 }
 
 /**
