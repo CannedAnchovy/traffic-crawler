@@ -1,4 +1,4 @@
-import "babel-polyfill";
-import crawlICOEvent from './icoEvent.js';
+import 'babel-polyfill';
+import crawlICO from './icoEvent.js';
 
-crawlICOEvent();
+crawlICO('icodrops.com');

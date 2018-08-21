@@ -1,4 +1,4 @@
-import {By, until, Key} from 'selenium-webdriver'
+import {By, until, Key} from 'selenium-webdriver';
 import config from '../similarweb.json';
 import {sleep} from './utility';
 
@@ -44,7 +44,7 @@ export async function getTraffic(driver, domain) {
     geographyRank: [],
     referralRank: [],
     socialRank: [],
-    adRank: []
+    adRank: [],
   };
 
   //
@@ -55,7 +55,7 @@ export async function getTraffic(driver, domain) {
     // get totalVisit
     try {
       traffic.totalVisit = await getTotalVisit(driver);
-    } catch(e) {
+    } catch (e) {
       traffic.success = false;
       console.error(e);
     }
@@ -63,7 +63,7 @@ export async function getTraffic(driver, domain) {
     // get marketingMix
     try {
       traffic.marketingMix = await getMarketingMix(driver);
-    } catch(e) {
+    } catch (e) {
       traffic.success = false;
       console.error(e);
     }
@@ -71,7 +71,7 @@ export async function getTraffic(driver, domain) {
     // get gergraphy rank
     try {
       traffic.geographyRank = await getGeographyRanks(driver);
-    } catch(e) {
+    } catch (e) {
       traffic.success = false;
       console.error(e);
     }
@@ -79,7 +79,7 @@ export async function getTraffic(driver, domain) {
     // get referral rank
     try {
       traffic.referralRank = await getReferralRanks(driver);
-    } catch(e) {
+    } catch (e) {
       traffic.success = false;
       console.error(e);
     }
@@ -87,7 +87,7 @@ export async function getTraffic(driver, domain) {
     // get social rank
     try {
       traffic.socialRank = await getSocialRanks(driver);
-    } catch(e) {
+    } catch (e) {
       traffic.success = false;
       console.error(e);
     }
@@ -95,17 +95,19 @@ export async function getTraffic(driver, domain) {
     // get ad rank
     try {
       traffic.adRank = await getAdRanks(driver);
-    } catch(e) {
+    } catch (e) {
       traffic.success = false;
       console.error(e);
     }
 
     // get back to website overview
     await clickSideNav(driver, 0, 0);
-
   } catch (e) {
-    traffic.success = false;
     console.error(e);
+    traffic.success = false;
+  } finally {
+    // get back to website overview
+    await clickSideNav(driver, 0, 0);
   }
   console.log(traffic);
   return traffic;
@@ -131,7 +133,7 @@ async function getTotalVisit(driver) {
  * @return {object} domain's visit source and sources' percentage
  */
 async function getMarketingMix(driver) {
-  console.log('Getting marketingMix...');
+  console.log('Getting marketing mix...');
 
   await clickSideNav(driver, 2, 0);
 
@@ -142,7 +144,7 @@ async function getMarketingMix(driver) {
   let marketingMix = {
     channelTraffic: '',
     percentage: [],
-    number: []
+    number: [],
   };
 
   // get channel total traffic
@@ -155,12 +157,12 @@ async function getMarketingMix(driver) {
   let percentageElements = await containerElement.findElements(By.css('span'));
 
   // busy waiting until percentage span is loaded
-  while(true) {
+  while (true) {
     text = await percentageElements[0].getText();
-    if(text !== '') break;
+    if (text !== '') break;
   }
 
-  for(let i=0; i<percentageElements.length; i++) {
+  for (let i=0; i<percentageElements.length; i++) {
     marketingMix.percentage.push(await percentageElements[i].getText());
   }
 
@@ -170,13 +172,15 @@ async function getMarketingMix(driver) {
   let numberElements = await containerElement.findElements(By.css('span'));
 
   // busy waiting until percentage span is loaded
-  while(true) {
+  while (true) {
     text = await numberElements[0].getText();
-    if(text !== '') break;
+    if (text !== '') break;
   }
 
-  for(let i=0; i<percentageElements.length; i++) {
-    marketingMix.number.push(await numberElements[i].getText());
+  for (let i=0; i<percentageElements.length; i++) {
+    text = await numberElements[i].getText();
+    if (text === '0') text += '%';
+    marketingMix.number.push(text);
   }
 
   return marketingMix;
@@ -206,7 +210,7 @@ async function getGeographyRanks(driver) {
   }
 
   let ranksNum = (countryElements.length > 10)? 10 : countryElements.length;
-  for(let i=0; i<ranksNum; i++) {
+  for (let i=0; i<ranksNum; i++) {
     let rank = {};
     rank.name = await countryElements[i].getText();
     rank.percentage = await percentageElements[i].getText();
@@ -240,7 +244,7 @@ async function getReferralRanks(driver) {
   }
 
   let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
-  for(let i=0; i<ranksNum; i++) {
+  for (let i=0; i<ranksNum; i++) {
     let rank = {};
     rank.name = await siteElements[i].getText();
     rank.percentage = await percentageElements[i].getText();
@@ -284,7 +288,7 @@ async function getSocialRanks(driver) {
   }
 
   let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
-  for(let i=0; i<ranksNum; i++) {
+  for (let i=0; i<ranksNum; i++) {
     let rank = {};
     rank.name = await siteElements[i].getText();
     rank.percentage = await percentageElements[i].getText();
@@ -310,7 +314,7 @@ async function getAdRanks(driver) {
 
   try {
     // wait for site element to load
-    element = await driver.wait(until.elementLocated(By.css('a.cell-clickable')), waitTime);
+    element = await driver.wait(until.elementLocated(By.css('a.cell-clickable')), 5000);
     await driver.wait(until.elementIsEnabled(element));
 
     // get site
@@ -327,7 +331,7 @@ async function getAdRanks(driver) {
     return ranks;
   }
 
-  for(let i=0; i<siteElements.length; i++) {
+  for (let i=0; i<siteElements.length; i++) {
     let rank = {};
     rank.name = await siteElements[i].getText();
     rank.percentage = await percentageElements[i].getText();
@@ -343,7 +347,6 @@ async function getAdRanks(driver) {
  * @param {string} timeString The time string (display text) in the dropdown list.
  */
 async function setTimeInterval(driver, timeString) {
-
   // click time interval dropdown button
   let timeIntervalElement = await driver.wait(until.elementLocated(By.css('div.DropdownButton')));
   await timeIntervalElement.click();
@@ -384,7 +387,6 @@ async function searchDomain(driver, domain) {
  * @param {number} itemIndex the item index
  */
 async function clickSideNav(driver, listIndex, itemIndex) {
-
   // get list index and container elements (item are not list's but container's children)
   let listElements = await driver.findElements(By.css('div.sc-VJcYb.cOSUNP'));
   let containerElements = await driver.findElements(By.css('div.SideNavGroupContainer-glSWhQ.cWqtzl'));
@@ -395,7 +397,7 @@ async function clickSideNav(driver, listIndex, itemIndex) {
   // click the fucking item
   try {
     await itemElements[itemIndex].click();
-  } catch(e) {
+  } catch (e) {
     await listElements[listIndex].click();
     await itemElements[itemIndex].click();
   }
@@ -409,10 +411,10 @@ async function clickSideNav(driver, listIndex, itemIndex) {
  */
 async function getElementIndex(elements, text) {
   let elementText;
-  for(let i=0; i<elements.length; i++) {
+  for (let i=0; i<elements.length; i++) {
     try {
       elementText = await elements[i].getText();
-      if(elementText === text) return i;
+      if (elementText === text) return i;
     } catch (e) {
     }
   }

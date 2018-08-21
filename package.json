@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint .",
+    "lint": "eslint src/**",
     "build": "rm -r lib/ && ./node_modules/.bin/babel src --out-dir lib/",
     "start": "npm run build && node lib/icoEvent/index.js"
   },

@@ -73,6 +73,11 @@ function getFormatDate(date) {
   return [year, (month>9 ? '' : '0') + month, (day>9 ? '' : '0') + day].join('/');
 }
 
+/**
+ * Transform js date object into YYYY/MM/DD format.
+ * @param {num} time the ms that you want to sleep
+ * @return {string} YYYY/MM/DD format of input date.
+ */
 async function sleep(time) {
   return new Promise((resolve) => {
     console.log('Im gonna sleep for ' + time + 'ms.');
@@ -82,4 +87,4 @@ async function sleep(time) {
   });
 }
 
-export {getMillion, getDateByDayLeft, getDateFromStrMonth, sleep};
+export {getMillion, getDateByDayLeft, getDateFromStrMonth, getDomainName, sleep};
