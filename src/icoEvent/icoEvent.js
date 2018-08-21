@@ -36,10 +36,14 @@ async function crawlICO(source) {
     console.log('Read ' + fileName + ' into the crawler...');
     let data = await readFile(fileName, 'utf-8');
     icoEventList = JSON.parse(data);
+
     console.log('Read ' + fileName + ' success!');
   } catch (e) {
     console.log(fileName + ' doesn\'t exist.');
+
     icoEventList = initializeIcoEventList(source);
+    await writeFile(fileName, JSON.stringify(icoEventList));
+    console.log(fileName + ' created.');
   }
 
   let driver = await new Builder().forBrowser('chrome').build();
@@ -51,7 +55,7 @@ async function crawlICO(source) {
       console.log('Crawling ico event list...');
       icoEventList.data = await crawlICOEvent(driver, source);
       icoEventList.crawlerStatus.getEventList = true;
-      await writeFile(pathName, JSON.parse(icoEventList));
+      await writeFile(fileName, JSON.stringify(icoEventList));
       console.log('Finish crawling ico event list.');
     } catch (e) {
       console.log('Error occurred when crawling event list.');
@@ -215,7 +219,7 @@ async function crawlICOEventFromICODrop(driver) {
         let dateArray = dateString.split(' ');
 
         // check if cross year
-        if (lastMonthString === 'Jan' && dateArray[1] === 'Dec') year -= 1;
+        if (lastMonthString === 'JANUARY' && dateArray[1] !== 'JANUARY') year -= 1;
 
         dateString = getDateFromStrMonth(year, dateArray[1], Number(dateArray[0]));
         lastMonthString = dateArray[1];
