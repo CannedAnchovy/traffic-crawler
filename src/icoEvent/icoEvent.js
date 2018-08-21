@@ -185,10 +185,10 @@ async function crawlICOEventFromICODrop(driver) {
   }
 
   // get each ico event end date and website url from their icoUrl page
+  let lastMonthString = '';
+  let year = 2018;
   for (let i=0; i<icoEventList.length; i++) {
     let icoEvent = icoEventList[i];
-    let year = 2018;
-    let lastMonthString = '';
 
     try {
       console.log('Crawling ' + icoEvent.name + ' website url and end date...');
@@ -269,24 +269,6 @@ function checkAllTrafficSuccess(icoEventList) {
     }
   }
   return true;
-}
-
-/**
- * transform
- * @param {object} icoEventList An object containing ICO event information.
- * @return {objec}  An object containing ICO event information.
- */
-function transform(icoEventList) {
-  let newIcoEventList = {};
-  console.log('hi');
-  console.log(icoEventList);
-  newIcoEventList.source = 'icodrops.com';
-  newIcoEventList.crawlerStatus = {
-    getEventList: icoEventList.getEventList,
-    getTraffic: icoEventList.getTraffic,
-  };
-  newIcoEventList.data = icoEventList.data;
-  return newIcoEventList;
 }
 
 export default crawlICO;

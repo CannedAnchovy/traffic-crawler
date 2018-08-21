@@ -6,7 +6,7 @@ const million = 1000000;
  *                             for example:$3,274,277
  * @return {string} Number of millions.
  */
-function getMillion(string) {
+export function getMillion(string) {
   // erase '$' and ','
   string = string.replace('$', '');
   string = string.split(',').join('');
@@ -21,7 +21,7 @@ function getMillion(string) {
  * @param {string} url
  * @return {string} Domain name.
  */
-function getDomainName(url) {
+export function getDomainName(url) {
   return url.split('/')[2];
 }
 
@@ -30,7 +30,7 @@ function getDomainName(url) {
  * @param {number} daysLeft How many days left.
  * @return {date} Calculated date.
  */
-function getDateByDayLeft(daysLeft) {
+export function getDateByDayLeft(daysLeft) {
   let currentDate = new Date();
   currentDate.setDate(currentDate.getDate() + daysLeft);
   return getFormatDate(currentDate);
@@ -43,7 +43,7 @@ function getDateByDayLeft(daysLeft) {
  * @param {number} date Input date.
  * @return {date} js Date of given input.
  */
-function getDateFromStrMonth(year, monthString, date) {
+export function getDateFromStrMonth(year, monthString, date) {
   let month;
   if (monthString === 'JANUARY') month = 1;
   else if (monthString === 'FEBRUARY') month = 2;
@@ -74,11 +74,24 @@ function getFormatDate(date) {
 }
 
 /**
+ * Check if date1 is within date2 and current time (later than date2)
+ * @param {string} date1 YYYY/MM/DD format date
+ * @param {string} date2 YYYY/MM/DD format date
+ * @return {bool} wheter date1 is within date2 and current time
+ */
+export function withinDate(date1, date2) {
+  date1 = new Date(date1);
+  date2 = new Date(date2);
+
+  return date1 >= date2;
+}
+
+/**
  * Transform js date object into YYYY/MM/DD format.
  * @param {num} time the ms that you want to sleep
  * @return {string} YYYY/MM/DD format of input date.
  */
-async function sleep(time) {
+export async function sleep(time) {
   return new Promise((resolve) => {
     console.log('Im gonna sleep for ' + time + 'ms.');
     setTimeout(() => {
@@ -86,5 +99,3 @@ async function sleep(time) {
     }, time);
   });
 }
-
-export {getMillion, getDateByDayLeft, getDateFromStrMonth, getDomainName, sleep};
