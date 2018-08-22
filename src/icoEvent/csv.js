@@ -142,7 +142,7 @@ function getRankStatisticLines(rankStatistic) {
   const rank = rankStatistic.data;
   for (let i=0; i<rank.length; i++) {
     const colIndex = 1 + i * 2;
-
+    lines[1][colIndex] = doubleQuote('#' + (i+1));
     lines[2][colIndex] = doubleQuote(rank[i].name);
     lines[2][colIndex + 1] = doubleQuote(rank[i].total);
 

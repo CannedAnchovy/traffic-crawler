@@ -1,4 +1,5 @@
 import {Builder, By} from 'selenium-webdriver';
+import chrome from 'selenium-webdriver/chrome';
 import fs from 'fs';
 import {readFile, writeFile, access} from '../fsPromise';
 import {signInSimilarWeb, getTraffic} from '../similarweb';
@@ -43,7 +44,14 @@ async function crawlICO(source) {
     console.log(fileName + ' created.');
   }
 
-  let driver = await new Builder().forBrowser('chrome').build();
+  const screen = {
+    width: 2560,
+    height: 1600,
+  };
+
+  // make chrome headless
+  let driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().windowSize(screen)).build();
+  // let driver = await new Builder().forBrowser('chrome').build();
 
   // if crawler haven't crawl icoEventList, crawl it
   if (!icoEventList.crawlerStatus.getEventList) {
@@ -57,6 +65,7 @@ async function crawlICO(source) {
     } catch (e) {
       console.log('Error occurred when crawling event list.');
       console.error(e);
+      await driver.close();
       process.exit(1);
     }
   }
@@ -75,9 +84,12 @@ async function crawlICO(source) {
     } catch (e) {
       console.log('Error occurred when crawling traffic.');
       console.error(e);
+      await driver.close();
       process.exit(2);
     }
   }
+
+  await driver.close();
 
   // if finish getting all data, convert it into csv format and output it
   if (icoEventList.crawlerStatus.getEventList && icoEventList.crawlerStatus.getTraffic) {

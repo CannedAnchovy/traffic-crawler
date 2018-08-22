@@ -1,5 +1,5 @@
 import {By, until, Key} from 'selenium-webdriver';
-import config from '../similarweb.json';
+import config from '../../../Work/Cobinhood/similarweb.json';
 import {sleep} from './utility';
 
 const waitTime = 20000;
@@ -51,11 +51,11 @@ export async function getTraffic(driver, domain) {
   //
   try {
     domain = await searchDomain(driver, domain);
-    await setTimeInterval(driver, 'Last 6 Months');
+    // await setTimeInterval(driver, 'Last 6 Months');
 
     // get totalVisit
     try {
-      traffic.totalVisit = await getTotalVisit(driver);
+      traffic.totalVisit = await getTotalVisit(driver, domain);
     } catch (e) {
       traffic.success = false;
       console.error(e);
@@ -63,7 +63,7 @@ export async function getTraffic(driver, domain) {
 
     // get marketingMix
     try {
-      traffic.marketingMix = await getMarketingMix(driver);
+      traffic.marketingMix = await getMarketingMix(driver, domain);
     } catch (e) {
       traffic.success = false;
       console.error(e);
@@ -71,7 +71,7 @@ export async function getTraffic(driver, domain) {
 
     // get gergraphy rank
     try {
-      traffic.geographyRank = await getGeographyRanks(driver);
+      traffic.geographyRank = await getGeographyRanks(driver, domain);
     } catch (e) {
       traffic.success = false;
       console.error(e);
@@ -79,7 +79,7 @@ export async function getTraffic(driver, domain) {
 
     // get referral rank
     try {
-      traffic.referralRank = await getReferralRanks(driver);
+      traffic.referralRank = await getReferralRanks(driver, domain);
     } catch (e) {
       traffic.success = false;
       console.error(e);
@@ -87,7 +87,7 @@ export async function getTraffic(driver, domain) {
 
     // get social rank
     try {
-      traffic.socialRank = await getSocialRanks(driver);
+      traffic.socialRank = await getSocialRanks(driver, domain);
     } catch (e) {
       traffic.success = false;
       console.error(e);
@@ -95,7 +95,7 @@ export async function getTraffic(driver, domain) {
 
     // get ad rank
     try {
-      traffic.adRank = await getAdRanks(driver);
+      traffic.adRank = await getAdRanks(driver, domain);
     } catch (e) {
       traffic.success = false;
       console.error(e);
@@ -108,6 +108,9 @@ export async function getTraffic(driver, domain) {
   calculateTrafficNumbers(traffic);
   traffic.successDate = new Date();
   console.log(traffic);
+
+  await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/6m?webSource=Total');
+
   return traffic;
 }
 
@@ -122,8 +125,8 @@ async function getTotalVisit(driver, domain) {
 
   await driver.get('https://pro.similarweb.com/#/website/audience-overview/' + domain +'/*/999/6m/?webSource=Total');
 
-  let containerElement = driver.wait(until.elementLocated(By.css('div.single-metric-visits-with-share')), waitTime);
-  let visitElement = containerElement.findElement(By.css('div.big-text.u-blueMediumMedium'));
+  let visitElement = driver.wait(until.elementLocated(By.css('div.big-text.u-blueMediumMedium')));
+  // let visitElement = containerElement.findElement(By.css('div.big-text.u-blueMediumMedium'));
   let text = await visitElement.getText();
 
   return text;
@@ -218,7 +221,9 @@ async function getGeographyRanks(driver, domain) {
     return ranks;
   }
 
-  let ranksNum = (countryElements.length > 10)? 10 : countryElements.length;
+  // let ranksNum = (countryElements.length > 10)? 10 : countryElements.length;
+  let ranksNum = countryElements.length;
+
   for (let i=0; i<ranksNum; i++) {
     let rank = {};
     rank.name = await countryElements[i].getText();
@@ -257,7 +262,9 @@ async function getReferralRanks(driver, domain) {
     return ranks;
   }
 
-  let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
+  // let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
+  let ranksNum = siteElements.length;
+
   for (let i=0; i<ranksNum; i++) {
     let rank = {};
     rank.name = await siteElements[i].getText();
@@ -304,7 +311,9 @@ async function getSocialRanks(driver, domain) {
     return ranks;
   }
 
-  let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
+  // let ranksNum = (siteElements.length > 10)? 10 : siteElements.length;
+  let ranksNum = siteElements.length;
+
   for (let i=0; i<ranksNum; i++) {
     let rank = {};
     rank.name = await siteElements[i].getText();
@@ -366,6 +375,11 @@ async function getAdRanks(driver, domain) {
 export function calculateTrafficNumbers(traffic) {
   console.log('Calculating traffic numbers...');
 
+  if (!traffic.success) {
+    console.log('Traffic data of this ico event is not complete.');
+    return;
+  }
+
   // calculate geography rank number
   calculateNumberInRank(traffic.marketingMix.number[0], traffic.geographyRank);
 
@@ -380,11 +394,14 @@ export function calculateTrafficNumbers(traffic) {
 }
 
 /**
+ * !!! deprecated because similar web updated !!!
+ * set time interval directly in the url!
+ *
  * Set the time interval in similarweb (can only be used after searchDomain())
  * @param {object} driver Selenium web driver.
  * @param {string} timeString The time string (display text) in the dropdown list.
  */
-async function setTimeInterval(driver, timeString) {
+/* async function setTimeInterval(driver, timeString) {
   // click time interval dropdown button
   let timeIntervalElement = await driver.wait(until.elementLocated(By.css('div.DropdownButton')));
   await timeIntervalElement.click();
@@ -399,7 +416,7 @@ async function setTimeInterval(driver, timeString) {
   await dropdownItems[itemIndex].click();
   await driver.findElement(By.css('button.Button.DurationSelector-action-submit')).click();
   await driver.wait(until.elementLocated(By.css('div.website-header-title')), waitTime);
-}
+} */
 
 /**
  * Search specified domain in similar web
@@ -416,7 +433,8 @@ async function searchDomain(driver, domain) {
   await sleep(3000);
   await searchElement.sendKeys(Key.ENTER);
   await driver.wait(until.elementLocated(By.css('div.website-header-title')), waitTime);
-  return await (driver.getCurrentUrl()).split('/')[6];
+  let url = await driver.getCurrentUrl();
+  return url.split('/')[6];
 }
 
 /**
