@@ -3,7 +3,7 @@
  * @param {object} icoEventList Data structure that stores many icoEvent.
  * @return {string} icoEventList in csv string format
  */
-export default function icoEventListToCsvString(icoEventList) {
+export function icoEventListToCsvString(icoEventList) {
   let string = '';
   string = getIcoEventHeaderCsvString();
 
@@ -38,6 +38,7 @@ function getIcoEventHeaderCsvString() {
 
   return header.join(',') + '\n';
 }
+
 /**
  * transform icoEvent to csv string format
  * @param {object} icoEvent Data structure that stores info about ico event.
@@ -45,6 +46,9 @@ function getIcoEventHeaderCsvString() {
  */
 function getIcoEventToCsvString(icoEvent) {
   let lines = new Array(6).fill(new Array(28).fill('\"\"'));
+
+  // important!!!!
+  // js array is default pass by reference
   lines = JSON.parse(JSON.stringify(lines));
   let rankNum;
 
@@ -95,15 +99,76 @@ function getIcoEventToCsvString(icoEvent) {
     lines[i+1][27] = doubleQuote(icoEvent.traffic.adRank[i].number);
   }
 
+  return linesToString(lines);
+}
+
+/**
+ * transform rankStatisticList to csv string format
+ * @param {array} rankStatisticList An array containing rankStatistic
+ * @return {string} rankStatisticList in csv string format
+ */
+export function getRankStatisticListCsvString(rankStatisticList) {
+  let lines = new Array(13).fill([]);
+
+  // important!!!!
+  // js array is default pass by reference
+  lines = JSON.parse(JSON.stringify(lines));
+
+  for (let i=0; i<rankStatisticList.length; i++) {
+    let rankLines = getRankStatisticLines(rankStatisticList[i]);
+
+    for (let j=0; j<13; j++) {
+      lines[j] = lines[j].concat(rankLines[j]);
+    }
+  }
+
+  return linesToString(lines);
+}
+
+/**
+ * transform rankStatistic to csv string format
+ * @param {object} rankStatistic Data structure that stores rank statistic
+ * @return {array} lines that store csv cell text
+ */
+function getRankStatisticLines(rankStatistic) {
+  let lines = new Array(13).fill(new Array(rankStatistic.data.length * 2 + 2).fill('\"\"'));
+
+  // important!!!!
+  // js array is default pass by reference
+  lines = JSON.parse(JSON.stringify(lines));
+
+  lines[0][1] = rankStatistic.name;
+
+  const rank = rankStatistic.data;
+  for (let i=0; i<rank.length; i++) {
+    const colIndex = 1 + i * 2;
+
+    lines[2][colIndex] = doubleQuote(rank[i].name);
+    lines[2][colIndex + 1] = doubleQuote(rank[i].total);
+
+    for (let j=0; j<rank[i].eventList.length; j++) {
+      lines[3 + j][colIndex] = doubleQuote(rank[i].eventList[j].name);
+      lines[3 + j][colIndex + 1] = doubleQuote(rank[i].eventList[j].number);
+    }
+  }
+
+  return lines;
+}
+
+/**
+ * transform lines to string
+ * @param {array} lines two dimensional array that stores csv cell text
+ * @return {string} lines' csv format string
+ */
+function linesToString(lines) {
   let string = '';
-  for (let i=0; i<6; i++) {
+  for (let i=0; i<lines.length; i++) {
     string += lines[i].join(',');
     string += '\n';
   }
 
   return string;
 }
-
 /**
  * wrap string in ""
  * @param {string} string string
