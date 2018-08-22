@@ -1,15 +1,19 @@
 import {readFile, writeFile} from '../fsPromise';
-import {filterIcoEvent} from './filter.js';
-import {icoEventListToCsvString, getRankStatisticListCsvString} from './csv.js';
+import {getRankStatisticListCsvString} from './csv.js';
 
 /**
  * Main function of statistic.js
- * @return {number} Execute status
+ * read icoEventList from fileName
+ * calculate statistic
+ * write the result to a new file
+ * return the new fileName
+ * @param {string} fileName the file that stored icoEventList
+ * @return {string} result fileName
  */
-async function main() {
-  console.log('hi');
+async function main(fileName) {
+  console.log('Calculating statistic for file ' + fileName +' ...');
 
-  let fileName = 'data/icoEvent(icodrops.com)2-filtered';
+  fileName = fileName + '-statistic.csv';
   let icoEventList = JSON.parse(await readFile(fileName, 'utf-8'));
 
   let statisticRankList = [
@@ -23,11 +27,11 @@ async function main() {
     printRankStatistic(statisticRankList[i]);
   }
 
-  await writeFile(fileName + '(rank statistic).csv', getRankStatisticListCsvString(statisticRankList));
-  // await writeFile(fileName + '-filtered', JSON.stringify(icoEventList));
-  // await writeFile(fileName + '-filtered.csv', toCsv(icoEventList));
+  console.log('Writting statistic result into ' + fileName + '...');
+  await writeFile(fileName, getRankStatisticListCsvString(statisticRankList));
 
-  return 0;
+
+  return fileName;
 }
 
 /**

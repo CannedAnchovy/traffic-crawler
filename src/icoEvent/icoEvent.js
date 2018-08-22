@@ -1,4 +1,5 @@
 import {Builder, By} from 'selenium-webdriver';
+import fs from 'fs';
 import {readFile, writeFile, access} from '../fsPromise';
 import {signInSimilarWeb, getTraffic} from '../similarweb';
 import {getMillion, getDateByDayLeft, getDateFromStrMonth, getDomainName} from '../utility';
@@ -8,7 +9,7 @@ import toCsv from './csv';
 /**
  * Crawl ico event.
  * @param {string} source ico event source website
- * @return {number} process execute status
+ * @return {string} the name of the file stored all the data
  */
 async function crawlICO(source) {
   /* let data = await readFile('data/icoEvent(icodrops.com)', 'utf-8');
@@ -16,7 +17,7 @@ async function crawlICO(source) {
   icoEventList = transform(icoEventList);
   await writeFile('data/icoEvent(icodrops.com)', JSON.stringify(icoEventList)); */
 
-  let fileName = 'data/icoEvent(' + source + ')';
+  let fileName = 'data/icoEvent(' + source + '1)';
   let icoEventList;
 
   console.log('I am ico crawler. Hi~');
@@ -56,7 +57,7 @@ async function crawlICO(source) {
     } catch (e) {
       console.log('Error occurred when crawling event list.');
       console.error(e);
-      return 1;
+      process.exit(1);
     }
   }
 
@@ -74,7 +75,7 @@ async function crawlICO(source) {
     } catch (e) {
       console.log('Error occurred when crawling traffic.');
       console.error(e);
-      return 2;
+      process.exit(2);
     }
   }
 
@@ -88,17 +89,17 @@ async function crawlICO(source) {
     } catch (e) {
       console.log('Error occurred when writing csv.');
       console.error(e);
-      return 3;
+      process.exit(3);
     }
   } else {
     console.log('Some job are still not done. But im going to rest now.');
     console.log('Restart me to finish those job.');
-    return 4;
+    process.exit(4);
   }
 
   console.log('Finish all jobs. I can rest now. :)');
   console.log('Bye~');
-  return 0;
+  return fileName;
 }
 
 
@@ -131,6 +132,8 @@ async function crawlICOEvent(driver, source) {
 
   if (source === 'icodrops.com') {
     icoEventList = await crawlICOEventFromICODrop(driver);
+  } else {
+    throw new Error('I don\'t know how to crawl event from ' + source + '.');
   }
   return icoEventList;
 }
