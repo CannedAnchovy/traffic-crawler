@@ -1,13 +1,9 @@
 import {Builder, By} from 'selenium-webdriver';
-import fs from 'fs';
-import util from 'util';
+import {readFile, writeFile, access} from '../fsPromise';
 import {signInSimilarWeb, getTraffic} from '../similarweb';
 import {getMillion, getDateByDayLeft, getDateFromStrMonth, getDomainName} from '../utility';
+import {filterIcoEvent} from './filter';
 import toCsv from './csv';
-
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
-const access = util.promisify(fs.access);
 
 /**
  * Crawl ico event.
@@ -76,7 +72,7 @@ async function crawlICO(source) {
       await writeFile(fileName, JSON.stringify(icoEventList));
       console.log('Finish crawling ico event traffic. (some data might be incomplete).');
     } catch (e) {
-      console.log('Error occurred when crawling event list.');
+      console.log('Error occurred when crawling traffic.');
       console.error(e);
       return 2;
     }
@@ -104,6 +100,7 @@ async function crawlICO(source) {
   console.log('Bye~');
   return 0;
 }
+
 
 /**
  * Initialize a ico Event file that store ico event data and crawler's basic info and current status
@@ -269,6 +266,26 @@ function checkAllTrafficSuccess(icoEventList) {
     }
   }
   return true;
+}
+
+
+/**
+ * Filter icoEventList from specified file with filterIcoEvent function defined in filter.js
+ * @param {fileName} fileName file that stores icoEventList
+ * @return {object} the filtered icoEventList
+ */
+export async function getFilterIcoEventList(fileName) {
+  let data = await readFile(fileName, 'utf-8');
+  let icoEventList = JSON.parse(data);
+
+  // if current file haven't completed crawling yet, terminate the process
+  if (!(icoEventList.crawlerStatus.getEventList && icoEventList.crawlerStatus.getTraffic)) {
+    console.log('This file hasn\'t finished crawling. Please crawlICO() this file first.');
+    process.exit(1);
+  }
+
+  icoEventList.data = icoEventList.data.filter(filterIcoEvent);
+  return icoEventList;
 }
 
 export default crawlICO;

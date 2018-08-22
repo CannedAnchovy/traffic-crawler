@@ -39,6 +39,7 @@ export async function signInSimilarWeb(driver) {
 export async function getTraffic(driver, domain) {
   let traffic = {
     success: true,
+    successDate: '',
     totalVisit: '',
     marketingMix: {},
     geographyRank: [],
@@ -109,6 +110,8 @@ export async function getTraffic(driver, domain) {
     // get back to website overview
     await clickSideNav(driver, 0, 0);
   }
+  calculateTrafficNumbers(traffic);
+  traffic.successDate = new Date();
   console.log(traffic);
   return traffic;
 }
@@ -122,9 +125,12 @@ async function getTotalVisit(driver) {
   console.log('Getting total visit...');
 
   await clickSideNav(driver, 1, 0);
+
   let containerElement = driver.wait(until.elementLocated(By.css('div.single-metric-visits-with-share')), waitTime);
   let visitElement = containerElement.findElement(By.css('div.big-text.u-blueMediumMedium'));
-  return await visitElement.getText();
+  let text = await visitElement.getText();
+
+  return text;
 }
 
 /**
@@ -135,7 +141,7 @@ async function getTotalVisit(driver) {
 async function getMarketingMix(driver) {
   console.log('Getting marketing mix...');
 
-  await clickSideNav(driver, 2, 0);
+  await clickSideNav(driver, 1, 1);
 
   // get chart and buttons
   let chartElement = await driver.wait(until.elementLocated(By.css('div.swWidget-frame.swWidget-frame--noBottomPadding')), waitTime);
@@ -163,7 +169,9 @@ async function getMarketingMix(driver) {
   }
 
   for (let i=0; i<percentageElements.length; i++) {
-    marketingMix.percentage.push(await percentageElements[i].getText());
+    text = await percentageElements[i].getText();
+    if (text === '0') text += '%';
+    marketingMix.percentage.push(text);
   }
 
   // get number elements
@@ -171,7 +179,7 @@ async function getMarketingMix(driver) {
   containerElement = await driver.wait(until.elementLocated(By.css('div.highcharts-data-labels')), waitTime);
   let numberElements = await containerElement.findElements(By.css('span'));
 
-  // busy waiting until percentage span is loaded
+  // busy waiting until number span is loaded
   while (true) {
     text = await numberElements[0].getText();
     if (text !== '') break;
@@ -179,7 +187,6 @@ async function getMarketingMix(driver) {
 
   for (let i=0; i<percentageElements.length; i++) {
     text = await numberElements[i].getText();
-    if (text === '0') text += '%';
     marketingMix.number.push(text);
   }
 
@@ -194,7 +201,8 @@ async function getMarketingMix(driver) {
 async function getGeographyRanks(driver) {
   console.log('Getting geography rank...');
 
-  await clickSideNav(driver, 1, 1);
+  await clickSideNav(driver, 2, 0);
+
   let ranks = [];
   let tableElement;
   let countryElements;
@@ -202,10 +210,13 @@ async function getGeographyRanks(driver) {
 
   try {
     tableElement = await driver.wait(until.elementLocated(By.css('div.swReactTable-wrapper')), waitTime);
+    await driver.wait(until.elementIsVisible(tableElement));
+
     countryElements = await tableElement.findElements(By.css('div.country-text'));
     percentageElements = await tableElement.findElements(By.css('span.min-value'));
   } catch (e) {
     console.error(e);
+    await clickSideNav(driver, 2);
     return ranks;
   }
 
@@ -217,6 +228,7 @@ async function getGeographyRanks(driver) {
 
     ranks.push(rank);
   }
+
   return ranks;
 }
 
@@ -228,7 +240,7 @@ async function getGeographyRanks(driver) {
 async function getReferralRanks(driver) {
   console.log('Getting referral rank...');
 
-  await clickSideNav(driver, 2, 1);
+  await clickSideNav(driver, 4, 0);
   let ranks = [];
   let tableElement;
   let siteElements;
@@ -236,6 +248,8 @@ async function getReferralRanks(driver) {
 
   try {
     tableElement = await driver.wait(until.elementLocated(By.css('div.swReactTable-wrapper')), waitTime);
+    await driver.wait(until.elementIsVisible(tableElement));
+
     siteElements = await tableElement.findElements(By.css('a.cell-clickable'));
     percentageElements = await tableElement.findElements(By.css('span.min-value'));
   } catch (e) {
@@ -262,7 +276,7 @@ async function getReferralRanks(driver) {
 async function getSocialRanks(driver) {
   console.log('Getting social rank...');
 
-  await clickSideNav(driver, 2, 3);
+  await clickSideNav(driver, 6, 0);
   let ranks = [];
   let element;
   let siteElements;
@@ -271,14 +285,15 @@ async function getSocialRanks(driver) {
   try {
     // wait for site element to load
     element = await driver.wait(until.elementLocated(By.css('span.swTable-content.text-select')), waitTime);
-    await driver.wait(until.elementIsEnabled(element));
+    await driver.wait(until.elementIsVisible(element));
 
     // get site elements
     siteElements = await driver.findElements(By.css('span.swTable-content.text-select'));
 
     // wait for percentage element to load
     element = await driver.wait(until.elementLocated(By.css('span.min-value')), waitTime);
-    await driver.wait(until.elementIsEnabled(element));
+    await driver.wait(until.elementIsVisible(element));
+    // await driver.wait(until.elementIsEnabled(element));
 
     // get percentage elements
     percentageElements = await driver.findElements(By.css('span.min-value'));
@@ -306,7 +321,7 @@ async function getSocialRanks(driver) {
 async function getAdRanks(driver) {
   console.log('Getting ad rank...');
 
-  await clickSideNav(driver, 2, 4);
+  await clickSideNav(driver, 5, 0);
   let ranks = [];
   let element;
   let siteElements;
@@ -339,6 +354,26 @@ async function getAdRanks(driver) {
     ranks.push(rank);
   }
   return ranks;
+}
+
+/**
+ * Calculate numbers in traffic data based on total number and percentage
+ * @param {object} traffic Data structures that stores traffic data
+ */
+export function calculateTrafficNumbers(traffic) {
+  console.log('Calculating traffic numbers...');
+
+  // calculate geography rank number
+  calculateNumberInRank(traffic.marketingMix.number[0], traffic.geographyRank);
+
+  // referral referral rank number
+  calculateNumberInRank(traffic.marketingMix.number[2], traffic.referralRank);
+
+  // referral social rank number
+  calculateNumberInRank(traffic.marketingMix.number[3], traffic.socialRank);
+
+  // referral geography rank number
+  calculateNumberInRank(traffic.marketingMix.number[6], traffic.adRank);
 }
 
 /**
@@ -396,9 +431,12 @@ async function clickSideNav(driver, listIndex, itemIndex) {
 
   // click the fucking item
   try {
+    driver.executeScript('arguments[0].scrollIntoView(true);', itemElements[itemIndex]);
     await itemElements[itemIndex].click();
   } catch (e) {
+    driver.executeScript('arguments[0].scrollIntoView(true);', listElements[listIndex]);
     await listElements[listIndex].click();
+    driver.executeScript('arguments[0].scrollIntoView(true);', itemElements[itemIndex]);
     await itemElements[itemIndex].click();
   }
 }
@@ -419,4 +457,50 @@ async function getElementIndex(elements, text) {
     }
   }
   return -1;
+}
+
+/**
+ * Calculate each rank element's number based on numberString and element's percentage
+ * @param {string} numberString number string
+ * @param {array} rank Array of objects that contain rank info
+ */
+function calculateNumberInRank(numberString, rank) {
+  let number = getNum(numberString);
+  for (let i=0; i<rank.length; i++) {
+    rank[i].number = (number * getPercentage(rank[i].percentage)).toFixed(2);
+  }
+}
+/**
+ * convert similarweb marketing mix number string to number
+ * @param {string} numString number string
+ * @return {number} number of numString
+ */
+function getNum(numString) {
+  let num;
+  if (numString === '0') return 0;
+
+  // get rid of '<'
+  if (numString[0] === '<') numString = numString.slice(2);
+
+  // get rid of 'K' and 'M'
+  if (numString.includes('K')) {
+    numString = numString.slice(0, numString.length-1);
+    num = Number(numString) * 1000;
+  } else if (numString.includes('M')) {
+    numString = numString.slice(0, numString.length-1);
+    num = Number(numString) * 1000000;
+  } else {
+    num = Number(numString);
+  }
+  return num;
+}
+
+/**
+ * convert similarweb marketing mix percentage string to number
+ * @param {string} percentageString percentage string
+ * @return {number} number of numString
+ */
+function getPercentage(percentageString) {
+  percentageString = percentageString.slice(0, percentageString.length-1);
+  return Number(percentageString) / 100;
 }

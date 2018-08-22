@@ -6,11 +6,7 @@ import {withinDate} from '../utility';
  * @return {bool} whether the icoEvent passes the filter
  *  */
 export function filterIcoEvent(icoEvent) {
-  let thirtyDaysAgo = new Date();
-  thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
   if (icoEvent.status === 'active') return true;
-  else if (withinDate(icoEvent.endDate, thirtyDaysAgo) &&
-    icoEvent.raised !== 'pending' && icoEvent.raised > 10) return true;
+  else if (withinDate(icoEvent.endDate, '2018/07/20') && (icoEvent.raised !== 'pending' && icoEvent.raised > 10)) return true;
   return false;
 }

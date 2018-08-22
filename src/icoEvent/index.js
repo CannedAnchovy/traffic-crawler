@@ -1,4 +1,6 @@
 import 'babel-polyfill';
 import crawlICO from './icoEvent.js';
+import statistic from './statistic.js';
 
-crawlICO('icodrops.com');
+// crawlICO('icodrops.com');
+statistic();

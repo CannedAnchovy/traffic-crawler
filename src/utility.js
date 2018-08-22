@@ -75,21 +75,20 @@ function getFormatDate(date) {
 
 /**
  * Check if date1 is within date2 and current time (later than date2)
- * @param {string} date1 YYYY/MM/DD format date
- * @param {string} date2 YYYY/MM/DD format date
+ * @param {string|date} date1 string or date object that can construct date object
+ * @param {string|date} date2 string or date object that can construct date object
  * @return {bool} wheter date1 is within date2 and current time
  */
 export function withinDate(date1, date2) {
   date1 = new Date(date1);
   date2 = new Date(date2);
-
   return date1 >= date2;
 }
 
 /**
  * Transform js date object into YYYY/MM/DD format.
  * @param {num} time the ms that you want to sleep
- * @return {string} YYYY/MM/DD format of input date.
+ * @return {Promise}
  */
 export async function sleep(time) {
   return new Promise((resolve) => {

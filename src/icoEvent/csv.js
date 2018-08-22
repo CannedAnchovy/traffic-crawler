@@ -68,6 +68,7 @@ function getIcoEventToCsvString(icoEvent) {
   for (let i=0; i<rankNum; i++) {
     lines[i+1][7] = doubleQuote(icoEvent.traffic.geographyRank[i].name);
     lines[i+1][8] = doubleQuote(icoEvent.traffic.geographyRank[i].percentage);
+    lines[i+1][9] = doubleQuote(icoEvent.traffic.geographyRank[i].number);
   }
 
   // convert referral rank
@@ -75,6 +76,7 @@ function getIcoEventToCsvString(icoEvent) {
   for (let i=0; i<rankNum; i++) {
     lines[i+1][13] = doubleQuote(icoEvent.traffic.referralRank[i].name);
     lines[i+1][14] = doubleQuote(icoEvent.traffic.referralRank[i].percentage);
+    lines[i+1][15] = doubleQuote(icoEvent.traffic.referralRank[i].number);
   }
 
   // convert social rank
@@ -82,14 +84,15 @@ function getIcoEventToCsvString(icoEvent) {
   for (let i=0; i<rankNum; i++) {
     lines[i+1][16] = doubleQuote(icoEvent.traffic.socialRank[i].name);
     lines[i+1][17] = doubleQuote(icoEvent.traffic.socialRank[i].percentage);
+    lines[i+1][18] = doubleQuote(icoEvent.traffic.socialRank[i].number);
   }
 
   // convert ad rank
   rankNum = (icoEvent.traffic.adRank.length > 5)? 5 : icoEvent.traffic.adRank.length;
   for (let i=0; i<rankNum; i++) {
-    console.log(icoEvent.traffic.adRank[i]);
     lines[i+1][25] = doubleQuote(icoEvent.traffic.adRank[i].name);
     lines[i+1][26] = doubleQuote(icoEvent.traffic.adRank[i].percentage);
+    lines[i+1][27] = doubleQuote(icoEvent.traffic.adRank[i].number);
   }
 
   let string = '';
