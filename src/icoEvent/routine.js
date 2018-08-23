@@ -8,8 +8,8 @@ import filterICOEventList from './filter';
  */
 async function main() {
   let fileName = await crawlICO('icodrops.com');
-  fileName = await calculateStatistic(fileName);
   fileName = await filterICOEventList(fileName);
+  fileName = await calculateStatistic(fileName);
 }
 
 export default main;

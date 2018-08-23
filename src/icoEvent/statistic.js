@@ -11,10 +11,10 @@ import {getRankStatisticListCsvString} from './csv.js';
  * @return {string} result fileName
  */
 async function main(fileName) {
-  console.log('Calculating statistic for file ' + fileName +' ...');
+  console.log('Calculating statistic for file ' + fileName +'...');
 
-  fileName = fileName + '-statistic.csv';
   let icoEventList = JSON.parse(await readFile(fileName, 'utf-8'));
+  fileName = fileName + '-statistic.csv';
 
   let statisticRankList = [
     getRankStatistic(icoEventList, 'geographyRank'),
@@ -23,9 +23,9 @@ async function main(fileName) {
     getRankStatistic(icoEventList, 'adRank'),
   ];
 
-  for (let i=0; i<statisticRankList.length; i++) {
+  /* for (let i=0; i<statisticRankList.length; i++) {
     printRankStatistic(statisticRankList[i]);
-  }
+  } */
 
   console.log('Writting statistic result into ' + fileName + '...');
   await writeFile(fileName, getRankStatisticListCsvString(statisticRankList));

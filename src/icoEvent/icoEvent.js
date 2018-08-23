@@ -5,7 +5,7 @@ import {readFile, writeFile, access} from '../fsPromise';
 import {signInSimilarWeb, getTraffic} from '../similarweb';
 import {getMillion, getDateByDayLeft, getDateFromStrMonth, getDomainName} from '../utility';
 import {filterIcoEvent} from './filter';
-import toCsv from './csv';
+import {icoEventListToCsvString} from './csv';
 
 /**
  * Crawl ico event.
@@ -51,7 +51,7 @@ async function crawlICO(source) {
 
   // make chrome headless
   let driver = await new Builder().forBrowser('chrome').setChromeOptions(new chrome.Options().headless().windowSize(screen)).build();
-  // let driver = await new Builder().forBrowser('chrome').build();
+  //let driver = await new Builder().forBrowser('chrome').build();
 
   // if crawler haven't crawl icoEventList, crawl it
   if (!icoEventList.crawlerStatus.getEventList) {
@@ -95,7 +95,7 @@ async function crawlICO(source) {
   if (icoEventList.crawlerStatus.getEventList && icoEventList.crawlerStatus.getTraffic) {
     try {
       console.log('Finish getting all data, output csv...');
-      let csv = toCsv(icoEventList);
+      let csv = icoEventListToCsvString(icoEventList);
       await writeFile(fileName + '.csv', csv);
       console.log('Finish outputing csv.');
     } catch (e) {
