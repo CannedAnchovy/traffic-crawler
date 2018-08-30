@@ -1,6 +1,6 @@
 import {readFile, writeFile} from '../fsPromise';
 import {withinDate} from '../utility';
-import {icoEventListToCsvString} from './csv';
+import {icoEventListToCsvString} from '../csv';
 
 /**
  * Main function of filter.js
@@ -19,7 +19,7 @@ async function main(fileName) {
   fileName += '-filtered';
 
   console.log('Writting filtered icoEventList to ' + fileName + '...');
-  await writeFile(fileName, JSON.stringify(icoEventList));
+  await writeFile(fileName, JSON.stringify(icoEventList, null, 2));
   await writeFile(fileName + '.csv', icoEventListToCsvString(icoEventList));
   return fileName;
 }

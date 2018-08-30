@@ -1,26 +1,28 @@
-import {readFile, writeFile} from '../fsPromise';
-import {getRankStatisticListCsvString} from './csv.js';
+import {readFile, writeFile} from './fsPromise';
+import {getRankStatisticListCsvString} from './csv';
 
 /**
  * Main function of statistic.js
- * read icoEventList from fileName
+ * read data from fileName
  * calculate statistic
  * write the result to a new file
  * return the new fileName
- * @param {string} fileName the file that stored icoEventList
+ * @param {string} fileName the file that stores data you want to analyze
+ * @param {func} getData function that return data segment in crawlList data structure
  * @return {string} result fileName
  */
-async function main(fileName) {
+async function main(fileName, getData) {
   console.log('Calculating statistic for file ' + fileName +'...');
 
-  let icoEventList = JSON.parse(await readFile(fileName, 'utf-8'));
+  let crawlList = JSON.parse(await readFile(fileName, 'utf-8'));
+  let list = getData(crawlList);
   fileName = fileName + '-statistic.csv';
 
   let statisticRankList = [
-    getRankStatistic(icoEventList, 'geographyRank'),
-    getRankStatistic(icoEventList, 'referralRank'),
-    getRankStatistic(icoEventList, 'socialRank'),
-    getRankStatistic(icoEventList, 'adRank'),
+    getRankStatistic(list, 'geographyRank'),
+    getRankStatistic(list, 'referralRank'),
+    getRankStatistic(list, 'socialRank'),
+    getRankStatistic(list, 'adRank'),
   ];
 
   /* for (let i=0; i<statisticRankList.length; i++) {
@@ -30,37 +32,36 @@ async function main(fileName) {
   console.log('Writting statistic result into ' + fileName + '...');
   await writeFile(fileName, getRankStatisticListCsvString(statisticRankList));
 
-
   return fileName;
 }
 
 /**
- * Get the specified rank statistic
- * @param {object} icoEventList An data structure that stores ico event information
+ * Get the specified rank statistic from list
+ * @param {array} list An array that stores object that has "traffic" property
  * @param {string} rankName rank name
  * @return {object} rank statistic
  */
-function getRankStatistic(icoEventList, rankName) {
+function getRankStatistic(list, rankName) {
   // initialize statistic data structure
   let indexMap = {};
   let rankList = [];
 
-  // iterate through whole icoEventList to get statistic about rank
-  for (let i=0; i<icoEventList.data.length; i++) {
-    for (let j=0; j<icoEventList.data[i].traffic[rankName].length; j++) {
-      const rankElement = icoEventList.data[i].traffic[rankName][j];
-      const icoEventName = icoEventList.data[i].name;
+  // iterate through whole list to get statistic about rank
+  for (let i=0; i<list.length; i++) {
+    for (let j=0; j<list[i].traffic[rankName].length; j++) {
+      const rankElement = list[i].traffic[rankName][j];
+      const listItemName = list[i].name;
 
       // if this rank element has already been recorded before
       // get index from indexMap
-      // then record the number and ico event name
+      // then record the number and listItem name
       if (indexMap.hasOwnProperty(rankElement.name)) {
         // console.log('Found element in indexMap.');
 
         let index = indexMap[rankElement.name];
         rankList[index].total += Number(rankElement.number);
         rankList[index].eventList.push({
-          name: icoEventName,
+          name: listItemName,
           number: Number(rankElement.number),
         });
       // if rank element hasn't been recorded before
@@ -73,7 +74,7 @@ function getRankStatistic(icoEventList, rankName) {
           name: rankElement.name,
           total: Number(rankElement.number),
           eventList: [{
-            name: icoEventName,
+            name: listItemName,
             number: Number(rankElement.number),
           }],
         });

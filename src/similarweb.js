@@ -1,6 +1,7 @@
 import {By, until, Key} from 'selenium-webdriver';
-import config from '../../../Work/Cobinhood/similarweb.json';
-import {sleep} from './utility';
+import config from '../../similarweb.json';
+import {writeFile} from './fsPromise';
+import {sleep, getDomainName} from './utility';
 
 const waitTime = 20000;
 
@@ -8,7 +9,7 @@ const waitTime = 20000;
  * Sign in to similarweb with username and password in config
  * @param {object} driver Selenium web driver.
  */
-export async function signInSimilarWeb(driver) {
+async function signInSimilarWeb(driver) {
   console.log('Logging in to SimilarWeb...');
 
   await driver.get('https://account.similarweb.com/login');
@@ -25,6 +26,32 @@ export async function signInSimilarWeb(driver) {
   await driver.wait(until.titleIs('SimilarWeb Home'), 100000);
 
   console.log('Logged in!');
+}
+
+/**
+ * Crawl list item traffic from similarweb and modify crawllist directly.
+ * @param {object} driver Selenium web driver.
+ * @param {object} crawlList An object containing crawler status and list data.
+ * @param {func} getData function that returns data segment in the crawlList data structure
+ * @param {string} fileName output fileName
+ */
+export async function crawlListTraffic(driver, crawlList, getData, fileName) {
+  console.log('Crawl traffic from similar web...');
+
+  let item;
+  let list = getData(crawlList);
+  await signInSimilarWeb(driver);
+
+  for (let i=0; i<list.length; i++) {
+    console.log(i);
+
+    if (list[i].hasOwnProperty('traffic') && list[i].traffic.success) continue;
+    item = list[i];
+
+    console.log('Crawl ' + item.name + ' traffic...');
+    item.traffic = await getTraffic(driver, getDomainName(item.url));
+    await writeFile(fileName, JSON.stringify(crawlList, null, 2));
+  }
 }
 
 /**
@@ -145,12 +172,12 @@ async function getMarketingMix(driver, domain) {
 
   // get chart and buttons
   let chartElement = await driver.wait(until.elementLocated(By.css('div.swWidget-frame.swWidget-frame--noBottomPadding')), waitTime);
-  let buttonElements = await chartElement.findElements(By.css('button.circle-item'));
+  let buttonElements = await chartElement.findElements(By.css('button.sc-jVODtj'));
   let text;
   let marketingMix = {
     channelTraffic: '',
-    percentage: [],
-    number: [],
+    percentages: [],
+    numbers: [],
   };
 
   // get channel total traffic
@@ -171,7 +198,7 @@ async function getMarketingMix(driver, domain) {
   for (let i=0; i<percentageElements.length; i++) {
     text = await percentageElements[i].getText();
     if (text === '0') text += '%';
-    marketingMix.percentage.push(text);
+    marketingMix.percentages.push(text);
   }
 
   // get number elements
@@ -187,7 +214,7 @@ async function getMarketingMix(driver, domain) {
 
   for (let i=0; i<percentageElements.length; i++) {
     text = await numberElements[i].getText();
-    marketingMix.number.push(text);
+    marketingMix.numbers.push(text);
   }
 
   return marketingMix;
@@ -217,7 +244,6 @@ async function getGeographyRanks(driver, domain) {
     percentageElements = await tableElement.findElements(By.css('span.min-value'));
   } catch (e) {
     console.error(e);
-    await clickSideNav(driver, 2);
     return ranks;
   }
 
@@ -376,21 +402,21 @@ export function calculateTrafficNumbers(traffic) {
   console.log('Calculating traffic numbers...');
 
   if (!traffic.success) {
-    console.log('Traffic data of this ico event is not complete.');
+    console.log('Traffic data of this item is not complete.');
     return;
   }
 
   // calculate geography rank number
-  calculateNumberInRank(traffic.marketingMix.number[0], traffic.geographyRank);
+  calculateNumberInRank(traffic.marketingMix.numbers[0], traffic.geographyRank);
 
   // referral referral rank number
-  calculateNumberInRank(traffic.marketingMix.number[2], traffic.referralRank);
+  calculateNumberInRank(traffic.marketingMix.numbers[2], traffic.referralRank);
 
   // referral social rank number
-  calculateNumberInRank(traffic.marketingMix.number[3], traffic.socialRank);
+  calculateNumberInRank(traffic.marketingMix.numbers[3], traffic.socialRank);
 
   // referral geography rank number
-  calculateNumberInRank(traffic.marketingMix.number[6], traffic.adRank);
+  calculateNumberInRank(traffic.marketingMix.numbers[6], traffic.adRank);
 }
 
 /**
@@ -464,12 +490,28 @@ async function searchDomain(driver, domain) {
 } */
 
 /**
+ * Check if all item in list finish getting traffic data
+ * @param {array} list An array storing object
+ * @return {bool} whether all item finish getting traffic data
+ */
+export function checkAllTrafficSuccess(list) {
+  for (let i=0; i<list.length; i++) {
+    if (!list[i].hasOwnProperty('traffic') || !list[i].traffic.success) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * !!! deprecated !!!
+ *
  * return the element index of the specified text
  * @param {array} elements An array of webElement.
  * @param {string} text item text
  * @return {number} The element index of the specified text.
  */
-async function getElementIndex(elements, text) {
+/* async function getElementIndex(elements, text) {
   let elementText;
   for (let i=0; i<elements.length; i++) {
     try {
@@ -479,7 +521,7 @@ async function getElementIndex(elements, text) {
     }
   }
   return -1;
-}
+} */
 
 /**
  * Calculate each rank element's number based on numberString and element's percentage
@@ -523,6 +565,10 @@ function getNum(numString) {
  * @return {number} number of numString
  */
 function getPercentage(percentageString) {
+  if (percentageString.includes('< ')) {
+    percentageString = percentageString.slice(2);
+  }
+
   percentageString = percentageString.slice(0, percentageString.length-1);
   return Number(percentageString) / 100;
 }

@@ -1,13 +1,13 @@
 {
-  "name": "crawler",
+  "name": "traffic-crawler",
   "version": "1.0.0",
-  "description": "A general crawler for data retrival.",
+  "description": "A crawler for crawling ico event and their traffic on similar web.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/**",
     "build": "rm -r lib/ && ./node_modules/.bin/babel src --out-dir lib/",
-    "start": "npm run build && node lib/icoEvent/index.js"
+    "start": "npm run build && node lib/index.js"
   },
   "repository": {
     "type": "git",

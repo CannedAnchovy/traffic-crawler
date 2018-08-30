@@ -1,6 +1,6 @@
 import crawlICO from './icoEvent.js';
-import calculateStatistic from './statistic.js';
-import filterICOEventList from './filter';
+import calculateStatistic from '../statistic.js';
+import filterICOEventList from './filter.js';
 
 /**
  * Main function for routine.js
@@ -9,7 +9,7 @@ import filterICOEventList from './filter';
 async function main() {
   let fileName = await crawlICO('icodrops.com');
   fileName = await filterICOEventList(fileName);
-  fileName = await calculateStatistic(fileName);
+  fileName = await calculateStatistic(fileName, (icoEventList) => icoEventList.data);
 }
 
 export default main;
