@@ -167,7 +167,6 @@ function getExchangeToCsvString(exchange) {
 
   // console.log(1);
 
-  console.log(exchange);
   // convert marketing mix
 
   if (Object.keys(exchange.traffic.marketingMix).length !== 0) {

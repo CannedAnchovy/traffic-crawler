@@ -95,9 +95,8 @@ function getRankStatistic(list, rankName) {
     else return 0;
   });
 
-  // sort top 10 rankList element's eventList
-  let num = (rankList.length > 10)? 10 : rankList.length;
-  for (let i=0; i<num; i++) {
+  // sort rankList element's eventList
+  for (let i=0; i<rankList.length; i++) {
     rankList[i].eventList.sort((element1, element2) => {
       let num1 = element1.number;
       let num2 = element2.number;
@@ -108,10 +107,11 @@ function getRankStatistic(list, rankName) {
     });
   }
 
-  // get rid of rank that is not top 10
-  rankList = rankList.slice(0, num);
+  rankList = rankList.slice(0, 200);
+
+  // get rid of event list item that is not top 10
   for (let i=0; i<rankList.length; i++) {
-    num = (rankList[i].eventList.length > 10)? 10 : rankList[i].eventList.length;
+    let num = (rankList[i].eventList.length > 10)? 10 : rankList[i].eventList.length;
     rankList[i].eventList = rankList[i].eventList.slice(0, num);
   }
 
