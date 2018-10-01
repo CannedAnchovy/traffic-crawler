@@ -1,4 +1,4 @@
 import 'babel-polyfill';
-import ico from './icoEvent/main';
+import exchange from './exchange/main';
 
-ico();
+exchange();

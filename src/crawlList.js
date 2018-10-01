@@ -8,7 +8,7 @@ export function initializeCrawlList(source) {
   let object = {
     from: source,
     crawlerStatus: {
-      getEventList: false,
+      getList: false,
       getTraffic: false,
     },
     data: [],

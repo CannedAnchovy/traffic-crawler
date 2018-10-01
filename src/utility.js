@@ -1,4 +1,18 @@
+import authenticator from 'otplib/authenticator';
+import crypto from 'crypto';
 const million = 1000000;
+
+/**
+ * Get google 2fa token (6 digits code) using otplib
+ * @param {string} secret google 2fa secret key
+ * @return {string} 2fa token
+ */
+export function getGoogle2faToken(secret) {
+  authenticator.options = {crypto};
+  const token = authenticator.generate(secret);
+
+  return token;
+}
 
 /**
  * Tranform icodrops money format to millions
@@ -86,7 +100,7 @@ export function withinDate(date1, date2) {
 }
 
 /**
- * Transform js date object into YYYY/MM/DD format.
+ * Use setTimeout to implement async sleep
  * @param {num} time the ms that you want to sleep
  * @return {Promise}
  */

@@ -16,7 +16,7 @@ async function main(fileName, getData) {
 
   let crawlList = JSON.parse(await readFile(fileName, 'utf-8'));
   let list = getData(crawlList);
-  fileName = fileName + '-statistic.csv';
+  fileName = fileName + '-statistic';
 
   let statisticRankList = [
     getRankStatistic(list, 'geographyRank'),
@@ -29,8 +29,10 @@ async function main(fileName, getData) {
     printRankStatistic(statisticRankList[i]);
   } */
 
+  await writeFile(fileName, JSON.stringify(statisticRankList, '', 2));
+
   console.log('Writting statistic result into ' + fileName + '...');
-  await writeFile(fileName, getRankStatisticListCsvString(statisticRankList));
+  await writeFile(fileName + '.csv', getRankStatisticListCsvString(statisticRankList));
 
   return fileName;
 }

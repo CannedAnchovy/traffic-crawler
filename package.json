@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/CannedAnchovy/crawler#readme",
   "dependencies": {
+    "otplib": "^10.0.1",
     "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "devDependencies": {

@@ -117,7 +117,7 @@ async function crawlICO(source) {
  * Crawl ICO event.
  * @param {object} driver Selenium web driver.
  * @param {object} source source website to get ico event
- * @return {object} An object containing current data status and ICO event list and its information.
+ * @return {array} An array containing current data status and ICO event list and its information.
  */
 async function crawlICOEvent(driver, source) {
   let icoEventList;
@@ -133,7 +133,7 @@ async function crawlICOEvent(driver, source) {
 /**
  * Crawl ICO event from ICO drops.
  * @param {object} driver Selenium web driver.
- * @return {object} An object containing ICO event list and its information.
+ * @return {array} An array containing ICO event list and its information.
  */
 async function crawlICOEventFromICODrop(driver) {
   let icoEventList = [];

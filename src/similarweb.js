@@ -1,25 +1,60 @@
 import {By, until, Key} from 'selenium-webdriver';
 import config from '../../similarweb.json';
 import {writeFile} from './fsPromise';
-import {sleep, getDomainName} from './utility';
+import {sleep, getDomainName, getGoogle2faToken} from './utility';
 
 const waitTime = 20000;
+let timeInterval = '1m';
 
 /**
  * Sign in to similarweb with username and password in config
  * @param {object} driver Selenium web driver.
+ * @param {string} type 'similarweb' or 'google'
  */
-async function signInSimilarWeb(driver) {
+async function signInSimilarWeb(driver, type) {
   console.log('Logging in to SimilarWeb...');
 
   await driver.get('https://account.similarweb.com/login');
 
-  // Enter username and password
-  let usernameElement = await driver.findElement(By.css('input#UserName--1'));
-  await usernameElement.sendKeys(config.username);
+  if (type === 'similarweb') {
+    // Enter username and password
+    let usernameElement = await driver.findElement(By.css('input#UserName--1'));
+    await usernameElement.sendKeys(config.username);
 
-  let passwordElement = await driver.findElement(By.css('input#Password--2'));
-  await passwordElement.sendKeys(config.password, Key.ENTER);
+    let passwordElement = await driver.findElement(By.css('input#Password--2'));
+    await passwordElement.sendKeys(config.password, Key.ENTER);
+  } else if (type ==='google') {
+    // press the connect with google button
+    let googleButtonElement = await driver.wait(until.elementLocated(By.css('button.social-form__social-button.social-form__social-button--google')), waitTime);
+    await googleButtonElement.click();
+
+    // enter email
+    let emailElement = await driver.wait(until.elementLocated(By.css('input#identifierId')), waitTime);
+    await emailElement.sendKeys(config.username);
+    let continueElements = await driver.findElements(By.css('span.RveJvd.snByac'));
+    await continueElements[1].click();
+
+    // IMPORTANT
+    // wait for google input field to load
+    await sleep(3000);
+
+    // enter password whsOnd zHQkBf
+    let passwordElement = await driver.findElements(By.css('input.whsOnd.zHQkBf'));
+    await passwordElement[0].sendKeys(config.password);
+    continueElements = await driver.findElements(By.css('span.RveJvd.snByac'));
+    await continueElements[0].click();
+
+    // IMPORTANT
+    // wait for google input field to load
+    await sleep(3000);
+
+    // enter 2fa token
+    let tokenElement = await driver.wait(until.elementLocated(By.css('input#totpPin')), waitTime);
+    let token = getGoogle2faToken(config.secret);
+    await tokenElement.sendKeys(token);
+    continueElements = await driver.findElements(By.css('span.RveJvd.snByac'));
+    await continueElements[0].click();
+  }
 
   // wait for similar web to load
   // await sleep(30000);
@@ -40,7 +75,7 @@ export async function crawlListTraffic(driver, crawlList, getData, fileName) {
 
   let item;
   let list = getData(crawlList);
-  await signInSimilarWeb(driver);
+  await signInSimilarWeb(driver, 'google');
 
   for (let i=0; i<list.length; i++) {
     console.log(i);
@@ -48,7 +83,7 @@ export async function crawlListTraffic(driver, crawlList, getData, fileName) {
     if (list[i].hasOwnProperty('traffic') && list[i].traffic.success) continue;
     item = list[i];
 
-    console.log('Crawl ' + item.name + ' traffic...');
+    console.log('Crawling ' + item.name + ' traffic...');
     item.traffic = await getTraffic(driver, getDomainName(item.url));
     await writeFile(fileName, JSON.stringify(crawlList, null, 2));
   }
@@ -84,8 +119,12 @@ export async function getTraffic(driver, domain) {
     try {
       traffic.totalVisit = await getTotalVisit(driver, domain);
     } catch (e) {
-      traffic.success = false;
+      traffic.success = (e.message === 'domain not found');
       console.error(e);
+      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
+      console.log(traffic);
+      return traffic;
     }
 
     // get marketingMix
@@ -94,6 +133,10 @@ export async function getTraffic(driver, domain) {
     } catch (e) {
       traffic.success = false;
       console.error(e);
+      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
+      console.log(traffic);
+      return traffic;
     }
 
     // get gergraphy rank
@@ -102,6 +145,10 @@ export async function getTraffic(driver, domain) {
     } catch (e) {
       traffic.success = false;
       console.error(e);
+      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
+      console.log(traffic);
+      return traffic;
     }
 
     // get referral rank
@@ -110,6 +157,10 @@ export async function getTraffic(driver, domain) {
     } catch (e) {
       traffic.success = false;
       console.error(e);
+      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
+      console.log(traffic);
+      return traffic;
     }
 
     // get social rank
@@ -118,6 +169,10 @@ export async function getTraffic(driver, domain) {
     } catch (e) {
       traffic.success = false;
       console.error(e);
+      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
+      console.log(traffic);
+      return traffic;
     }
 
     // get ad rank
@@ -126,18 +181,26 @@ export async function getTraffic(driver, domain) {
     } catch (e) {
       traffic.success = false;
       console.error(e);
+      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
+      console.log(traffic);
+      return traffic;
     }
   } catch (e) {
-    console.error(e);
     traffic.success = false;
+    console.error(e);
+    await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
+    console.log(traffic);
+    return traffic;
   }
 
   calculateTrafficNumbers(traffic);
   traffic.successDate = new Date();
+
+  await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+
   console.log(traffic);
-
-  await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/6m?webSource=Total');
-
   return traffic;
 }
 
@@ -150,12 +213,23 @@ export async function getTraffic(driver, domain) {
 async function getTotalVisit(driver, domain) {
   console.log('Getting total visit...');
 
-  await driver.get('https://pro.similarweb.com/#/website/audience-overview/' + domain +'/*/999/6m/?webSource=Total');
+  await driver.get('https://pro.similarweb.com/#/website/audience-overview/' + domain +'/*/999/' + timeInterval + '/?webSource=Total');
 
-  let visitElement = driver.wait(until.elementLocated(By.css('div.big-text.u-blueMediumMedium')));
-  // let visitElement = containerElement.findElement(By.css('div.big-text.u-blueMediumMedium'));
+  let visitElement = driver.wait(until.elementLocated(By.css('div.big-text.u-blueMediumMedium')), waitTime);
+
   let text = await visitElement.getText();
 
+  // if didn't get total visit the first time, wait waitTime for it
+  // if it still didn't show up, throw error
+  for (let i=0; i<5; i++) {
+    text = await visitElement.getText();
+    if (text !== '') return text;
+
+    await sleep(4000);
+  }
+
+  text = await visitElement.getText();
+  if (text === '') throw new Error('domain not found');
   return text;
 }
 
@@ -168,11 +242,11 @@ async function getTotalVisit(driver, domain) {
 async function getMarketingMix(driver, domain) {
   console.log('Getting marketing mix...');
 
-  await driver.get('https://pro.similarweb.com/#/website/traffic-overview/' + domain +'/*/999/6m?category=no-category');
+  await driver.get('https://pro.similarweb.com/#/website/traffic-overview/' + domain +'/*/999/' + timeInterval + '?category=no-category');
 
   // get chart and buttons
   let chartElement = await driver.wait(until.elementLocated(By.css('div.swWidget-frame.swWidget-frame--noBottomPadding')), waitTime);
-  let buttonElements = await chartElement.findElements(By.css('button.sc-jVODtj'));
+  let buttonElements = await chartElement.findElements(By.css('button.sc-qrIAp'));
   let text;
   let marketingMix = {
     channelTraffic: '',
@@ -229,7 +303,7 @@ async function getMarketingMix(driver, domain) {
 async function getGeographyRanks(driver, domain) {
   console.log('Getting geography rank...');
 
-  await driver.get('https://pro.similarweb.com/#/website/audience-geography/' + domain + '/*/999/6m');
+  await driver.get('https://pro.similarweb.com/#/website/audience-geography/' + domain + '/*/999/' + timeInterval + '');
 
   let ranks = [];
   let tableElement;
@@ -270,7 +344,7 @@ async function getGeographyRanks(driver, domain) {
 async function getReferralRanks(driver, domain) {
   console.log('Getting referral rank...');
 
-  await driver.get('https://pro.similarweb.com/#/website/traffic-referrals/' + domain + '/*/999/6m?webSource=Desktop');
+  await driver.get('https://pro.similarweb.com/#/website/traffic-referrals/' + domain + '/*/999/' + timeInterval + '?webSource=Desktop');
 
   let ranks = [];
   let tableElement;
@@ -310,7 +384,7 @@ async function getReferralRanks(driver, domain) {
 async function getSocialRanks(driver, domain) {
   console.log('Getting social rank...');
 
-  await driver.get('https://pro.similarweb.com/#/website/traffic-social/' + domain + '/*/999/6m');
+  await driver.get('https://pro.similarweb.com/#/website/traffic-social/' + domain + '/*/999/' + timeInterval);
 
   let ranks = [];
   let element;
@@ -359,7 +433,7 @@ async function getSocialRanks(driver, domain) {
 async function getAdRanks(driver, domain) {
   console.log('Getting ad rank...');
 
-  await driver.get('https://pro.similarweb.com/#/website/traffic-display/' + domain + '/*/999/6m?selectedTab=overview&webSource=Desktop');
+  await driver.get('https://pro.similarweb.com/#/website/traffic-display/' + domain + '/*/999/' + timeInterval + '?selectedTab=overview&webSource=Desktop');
   let ranks = [];
   let element;
   let siteElements;
@@ -532,6 +606,12 @@ function calculateNumberInRank(numberString, rank) {
   let number = getNum(numberString);
   for (let i=0; i<rank.length; i++) {
     rank[i].number = (number * getPercentage(rank[i].percentage)).toFixed(2);
+
+    if (isNaN(rank[i].number)) {
+      console.log('!!! Some rank number is NaN !!!');
+      console.log(number);
+      console.log(getPercentage(rank[i].percentage));
+    }
   }
 }
 /**
@@ -565,10 +645,9 @@ function getNum(numString) {
  * @return {number} number of numString
  */
 function getPercentage(percentageString) {
-  if (percentageString.includes('< ')) {
+  if (percentageString.includes('<') || percentageString.includes('>')) {
     percentageString = percentageString.slice(2);
   }
-
   percentageString = percentageString.slice(0, percentageString.length-1);
   return Number(percentageString) / 100;
 }
