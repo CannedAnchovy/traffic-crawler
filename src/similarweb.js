@@ -3,7 +3,7 @@ import config from '../../similarweb.json';
 import {writeFile} from './fsPromise';
 import {sleep, getDomainName, getGoogle2faToken} from './utility';
 
-const waitTime = 20000;
+const waitTime = 5000;
 let timeInterval = '1m';
 
 /**
@@ -126,6 +126,14 @@ export async function getTraffic(driver, domain) {
       console.log(traffic);
       return traffic;
     }
+
+    if (traffic.totalVisit === '< 5,000') {
+      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+      console.log('This domain has no following data.');
+      traffic.success = true;
+      return traffic;
+    }
+
 
     // get marketingMix
     try {

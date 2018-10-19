@@ -1,5 +1,6 @@
 import {readFile, writeFile} from './fsPromise';
 import {getRankStatisticListCsvString} from './csv';
+const rankNum = 20;
 
 /**
  * Main function of statistic.js
@@ -107,7 +108,7 @@ function getRankStatistic(list, rankName) {
     });
   }
 
-  rankList = rankList.slice(0, 200);
+  rankList = rankList.slice(0, rankNum);
 
   // get rid of event list item that is not top 10
   for (let i=0; i<rankList.length; i++) {

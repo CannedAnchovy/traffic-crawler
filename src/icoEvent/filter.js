@@ -31,7 +31,7 @@ async function main(fileName) {
  */
 function filterIcoEvent(icoEvent) {
   if (icoEvent.status === 'active') return true;
-  else if (withinDate(icoEvent.endDate, '2018/07/20') && (icoEvent.raised !== 'pending' && icoEvent.raised > 10)) return true;
+  else if (withinDate(icoEvent.endDate, '2018/08/01')) return true;
   return false;
 }
 

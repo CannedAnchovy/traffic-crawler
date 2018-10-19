@@ -1,4 +1,4 @@
 import 'babel-polyfill';
-import exchange from './exchange/main';
+import main from './tokenTracker.js';
 
-exchange();
+main();

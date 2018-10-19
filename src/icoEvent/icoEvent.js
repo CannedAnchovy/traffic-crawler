@@ -14,7 +14,7 @@ import {icoEventListToCsvString} from '../csv';
  * @return {string} the name of the file stored all the data
  */
 async function crawlICO(source) {
-  let fileName = 'data/icoEvent(' + source + '2)';
+  let fileName = 'data/icoEvent(2018-Aug)';
   let icoEventList;
 
   console.log('I am ico crawler. Hi~');
@@ -148,7 +148,7 @@ async function crawlICOEventFromICODrop(driver) {
     let icoElements = await parentElement.findElements(By.css('div.a_ico'));
 
     // for limit test case size
-    icoElements = icoElements.slice(0, 10);
+    // icoElements = icoElements.slice(0, 10);
 
     console.log('Total ' + icoElements.length + ' ' + genre[i] + ' ICO event.');
 
