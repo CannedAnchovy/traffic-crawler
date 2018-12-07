@@ -5,6 +5,7 @@ import {readFile, writeFile, access} from '../fsPromise';
 import {initializeCrawlList} from '../crawlList';
 import {crawlListTraffic, checkAllTrafficSuccess} from '../similarweb';
 import {exchangeListToCsvString} from '../csv';
+import { sleep } from '../utility';
 
 /**
  * Crawl exchanges.
@@ -12,7 +13,7 @@ import {exchangeListToCsvString} from '../csv';
  * @return {string} the name of the file stored all the data
  */
 async function crawlExchange(source) {
-  let fileName = 'data/exchanges(2018-Aug)';
+  let fileName = 'data/exchanges(2018-Nov)';
   let exchangeList;
 
   console.log('I am exchange crawler. Hi~');
@@ -139,7 +140,7 @@ async function crawlExchangeListFromCMC(driver) {
 
   let list = [];
 
-  await driver.get('https://coinmarketcap.com/exchanges/volume/24-hour/');
+  await driver.get('https://coinmarketcap.com/exchanges/volume/24-hour/all/');
 
   let trElements = await driver.findElements(By.css('tr[id]'));
   console.log('Total ' + trElements.length + ' exchanges.');
@@ -163,6 +164,8 @@ async function crawlExchangeListFromCMC(driver) {
 
     // get exchange url and trading volume on their own cmc page
     await driver.get(item.cmcUrl);
+
+    await sleep(3000);
 
     let containerElement = await driver.findElement(By.css('div.col-xs-12'));
     let urlElement = await containerElement.findElement(By.css('a'));

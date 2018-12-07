@@ -3,7 +3,7 @@ import config from '../../similarweb.json';
 import {writeFile} from './fsPromise';
 import {sleep, getDomainName, getGoogle2faToken} from './utility';
 
-const waitTime = 5000;
+const waitTime = 8000;
 let timeInterval = '1m';
 
 /**
@@ -23,7 +23,7 @@ async function signInSimilarWeb(driver, type) {
 
     let passwordElement = await driver.findElement(By.css('input#Password--2'));
     await passwordElement.sendKeys(config.password, Key.ENTER);
-  } else if (type ==='google') {
+  } else if (type === 'google') {
     // press the connect with google button
     let googleButtonElement = await driver.wait(until.elementLocated(By.css('button.social-form__social-button.social-form__social-button--google')), waitTime);
     await googleButtonElement.click();
@@ -32,7 +32,7 @@ async function signInSimilarWeb(driver, type) {
     let emailElement = await driver.wait(until.elementLocated(By.css('input#identifierId')), waitTime);
     await emailElement.sendKeys(config.username);
     let continueElements = await driver.findElements(By.css('span.RveJvd.snByac'));
-    await continueElements[1].click();
+    await continueElements[0].click();
 
     // IMPORTANT
     // wait for google input field to load
@@ -254,7 +254,7 @@ async function getMarketingMix(driver, domain) {
 
   // get chart and buttons
   let chartElement = await driver.wait(until.elementLocated(By.css('div.swWidget-frame.swWidget-frame--noBottomPadding')), waitTime);
-  let buttonElements = await chartElement.findElements(By.css('button.sc-qrIAp'));
+  let buttonElements = await chartElement.findElements(By.css('button.sc-iBEsjs'));
   let text;
   let marketingMix = {
     channelTraffic: '',
