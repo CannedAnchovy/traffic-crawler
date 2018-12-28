@@ -8,13 +8,19 @@ import {getMillion, getDateByDayLeft, getDateFromStrMonth} from '../utility';
 import {filterIcoEvent} from './filter';
 import {icoEventListToCsvString} from '../csv';
 
+let deadline;
+
 /**
  * Crawl ico event.
  * @param {string} source ico event source website
+ * @param {string} deadlineDate
+ * @param {string} timeInterval
+ * @param {string} fileName
  * @return {string} the name of the file stored all the data
  */
-async function crawlICO(source) {
-  let fileName = 'data/icoEvent(2018-Aug)';
+async function crawlICO(source, deadlineDate, timeInterval, fileName) {
+  deadline = new Date(deadlineDate);
+  fileName = 'data/icoEvent(' + fileName + ')';
   let icoEventList;
 
   console.log('I am ico crawler. Hi~');
@@ -74,7 +80,7 @@ async function crawlICO(source) {
 
       let getData = (icoEventList) => icoEventList.data;
 
-      await crawlListTraffic(driver, icoEventList, getData, fileName);
+      await crawlListTraffic(driver, icoEventList, getData, fileName, timeInterval);
       if (checkAllTrafficSuccess(icoEventList.data)) {
         icoEventList.crawlerStatus.getTraffic = true;
       }
@@ -183,6 +189,7 @@ async function crawlICOEventFromICODrop(driver) {
   // get each ico event end date and website url from their icoUrl page
   let lastMonthString = '';
   let year = 2018;
+  let cropNum;
   for (let i=0; i<icoEventList.length; i++) {
     let icoEvent = icoEventList[i];
 
@@ -222,10 +229,17 @@ async function crawlICOEventFromICODrop(driver) {
       }
       icoEvent.endDate = dateString;
       icoEvent.traffic = {success: false};
+
+      let icoDate = new Date(dateString);
+      if (icoDate < deadline) {
+        cropNum = i;
+        break;
+      }
     } catch (e) {
       console.error(e);
     }
   }
+  icoEventList = icoEventList.slice(0, cropNum - 1);
   return icoEventList;
 }
 

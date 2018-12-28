@@ -921,6 +921,926 @@
             "number": "37260.00"
           }
         ]
+      },
+      {
+        "name": "Australia",
+        "total": "1397864.31",
+        "eventList": [
+          {
+            "name": "BTC Markets",
+            "number": "477656.30"
+          },
+          {
+            "name": "Binance",
+            "number": "325480.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "66700.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "62350.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "54810.00"
+          },
+          {
+            "name": "Independent Reserve",
+            "number": "51092.56"
+          },
+          {
+            "name": "CEX.IO",
+            "number": "43960.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "39780.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "34080.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "24840.00"
+          }
+        ]
+      },
+      {
+        "name": "Italy",
+        "total": "1343685.73",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "282220.00"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "150880.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "91440.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "79560.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "70180.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "67510.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "66240.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "54860.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "54860.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "44010.00"
+          }
+        ]
+      },
+      {
+        "name": "Czech Republic",
+        "total": "1084293.48",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "208060.00"
+          },
+          {
+            "name": "CoinMate",
+            "number": "108700.72"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "103500.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "87290.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "67680.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "66560.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "66560.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "63220.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "35670.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "32400.00"
+          }
+        ]
+      },
+      {
+        "name": "Bulgaria",
+        "total": "970889.22",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "230720.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "92640.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "74880.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "61620.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "46400.00"
+          },
+          {
+            "name": "TradeOgre",
+            "number": "46141.56"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "44720.00"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "40020.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "37700.00"
+          },
+          {
+            "name": "YoBit",
+            "number": "27840.00"
+          }
+        ]
+      },
+      {
+        "name": "South Africa",
+        "total": "886975.49",
+        "eventList": [
+          {
+            "name": "Luno",
+            "number": "245562.78"
+          },
+          {
+            "name": "Altcoin Trader",
+            "number": "239558.56"
+          },
+          {
+            "name": "Binance",
+            "number": "96820.00"
+          },
+          {
+            "name": "CEX.IO",
+            "number": "58240.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "44290.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "33060.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "20640.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "19440.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "18720.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "15080.00"
+          }
+        ]
+      },
+      {
+        "name": "Romania",
+        "total": "858292.61",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "197760.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "81200.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "54600.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "53760.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "53360.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "50740.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "42120.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "42120.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "39600.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "25920.00"
+          }
+        ]
+      },
+      {
+        "name": "Slovakia",
+        "total": "719657.34",
+        "eventList": [
+          {
+            "name": "Coinbase Pro",
+            "number": "113620.00"
+          },
+          {
+            "name": "Binance",
+            "number": "107120.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "66120.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "59020.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "59020.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "48720.00"
+          },
+          {
+            "name": "CoinExchange",
+            "number": "42840.00"
+          },
+          {
+            "name": "CryptoBridge",
+            "number": "37050.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "26230.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "24300.00"
+          }
+        ]
+      },
+      {
+        "name": "Belgium",
+        "total": "706369.14",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "166860.00"
+          },
+          {
+            "name": "LiteBit.eu",
+            "number": "69228.00"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "67620.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "66960.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "37990.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "34220.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "33970.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "30160.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "30160.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "24960.00"
+          }
+        ]
+      },
+      {
+        "name": "Venezuela",
+        "total": "697395.48",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "210120.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "63800.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "62400.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "53820.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "36830.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "31590.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "22360.00"
+          },
+          {
+            "name": "Coinut",
+            "number": "21931.20"
+          },
+          {
+            "name": "YoBit",
+            "number": "20880.00"
+          },
+          {
+            "name": "Waves Decentralized Exchange",
+            "number": "19547.82"
+          }
+        ]
+      },
+      {
+        "name": "Switzerland",
+        "total": "583898.85",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "146260.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "49880.00"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "40940.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "39840.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "34400.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "30420.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "28080.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "28080.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "25920.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "20300.00"
+          }
+        ]
+      },
+      {
+        "name": "Taiwan",
+        "total": "580346.49",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "168920.00"
+          },
+          {
+            "name": "MBAex",
+            "number": "71154.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "63210.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "43200.00"
+          },
+          {
+            "name": "OKEx",
+            "number": "29380.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "22040.00"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "15640.00"
+          },
+          {
+            "name": "OTCBTC",
+            "number": "15240.50"
+          },
+          {
+            "name": "Kucoin",
+            "number": "15080.00"
+          },
+          {
+            "name": "TradeOgre",
+            "number": "13391.00"
+          }
+        ]
+      },
+      {
+        "name": "Argentina",
+        "total": "562699.05",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "144200.00"
+          },
+          {
+            "name": "CryptoMarket",
+            "number": "41730.70"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "40420.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "36660.00"
+          },
+          {
+            "name": "SouthXchange",
+            "number": "32113.04"
+          },
+          {
+            "name": "Bittrex",
+            "number": "31900.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "27810.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "26680.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "26400.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "16250.00"
+          }
+        ]
+      },
+      {
+        "name": "Belarus",
+        "total": "559004.31",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "109180.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "47520.00"
+          },
+          {
+            "name": "Exmo",
+            "number": "43780.00"
+          },
+          {
+            "name": "YoBit",
+            "number": "38570.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "37840.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "30160.00"
+          },
+          {
+            "name": "WEX",
+            "number": "25920.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "19980.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "18720.00"
+          },
+          {
+            "name": "ABCC",
+            "number": "16373.82"
+          }
+        ]
+      },
+      {
+        "name": "Latvia",
+        "total": "554882.50",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "47380.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "45120.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "40800.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "31900.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "26910.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "26650.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "26650.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "24940.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "22140.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "21930.00"
+          }
+        ]
+      },
+      {
+        "name": "Colombia",
+        "total": "547744.10",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "164800.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "75840.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "44080.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "38860.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "38610.00"
+          },
+          {
+            "name": "YoBit",
+            "number": "36250.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "24940.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "18630.00"
+          },
+          {
+            "name": "SouthXchange",
+            "number": "16855.92"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "6440.00"
+          }
+        ]
+      },
+      {
+        "name": "Slovenia",
+        "total": "505878.05",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "111240.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "77220.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "77220.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "34220.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "26130.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "25370.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "20300.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "17040.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "14580.00"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "13800.00"
+          }
+        ]
+      },
+      {
+        "name": "Austria",
+        "total": "493486.38",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "117420.00"
+          },
+          {
+            "name": "Coinbase Pro",
+            "number": "62560.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "42140.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "38880.00"
+          },
+          {
+            "name": "Kraken",
+            "number": "35760.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "26680.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "18900.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "17980.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "14820.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "12740.00"
+          }
+        ]
+      },
+      {
+        "name": "Serbia",
+        "total": "477633.56",
+        "eventList": [
+          {
+            "name": "CEX.IO",
+            "number": "191660.00"
+          },
+          {
+            "name": "Binance",
+            "number": "63860.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "42240.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "25520.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "22620.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "18920.00"
+          },
+          {
+            "name": "CryptoBridge",
+            "number": "12870.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "11310.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "11310.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "10730.00"
+          }
+        ]
+      },
+      {
+        "name": "Philippines",
+        "total": "453040.68",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "100940.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "56160.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "29000.00"
+          },
+          {
+            "name": "CryptoBridge",
+            "number": "24180.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "21460.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "16770.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "15930.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "14880.00"
+          },
+          {
+            "name": "Mercatox",
+            "number": "14309.51"
+          },
+          {
+            "name": "CoinExchange",
+            "number": "14140.00"
+          }
+        ]
+      },
+      {
+        "name": "Singapore",
+        "total": "452974.50",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "119480.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "30100.00"
+          },
+          {
+            "name": "Gemini",
+            "number": "28732.32"
+          },
+          {
+            "name": "Bittrex",
+            "number": "24360.00"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "21840.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "18560.00"
+          },
+          {
+            "name": "Indodax",
+            "number": "14560.00"
+          },
+          {
+            "name": "Liquid",
+            "number": "11604.94"
+          },
+          {
+            "name": "Poloniex",
+            "number": "11520.00"
+          },
+          {
+            "name": "HitBTC",
+            "number": "11340.00"
+          }
+        ]
       }
     ]
   },
@@ -1536,6 +2456,518 @@
           {
             "name": "Binance",
             "number": "29145.00"
+          }
+        ]
+      },
+      {
+        "name": "bounty.global",
+        "total": "29115.96",
+        "eventList": [
+          {
+            "name": "Coinsuper",
+            "number": "16560.45"
+          },
+          {
+            "name": "ABCC",
+            "number": "11551.15"
+          },
+          {
+            "name": "HBUS",
+            "number": "1004.36"
+          }
+        ]
+      },
+      {
+        "name": "refbit.net",
+        "total": "28270.65",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "28270.65"
+          }
+        ]
+      },
+      {
+        "name": "medium.com",
+        "total": "28143.98",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "6703.35"
+          },
+          {
+            "name": "Gemini",
+            "number": "3031.05"
+          },
+          {
+            "name": "Huobi",
+            "number": "2505.88"
+          },
+          {
+            "name": "Bilaxy",
+            "number": "1259.95"
+          },
+          {
+            "name": "Kucoin",
+            "number": "1116.05"
+          },
+          {
+            "name": "AirSwap",
+            "number": "1023.96"
+          },
+          {
+            "name": "Koinex",
+            "number": "658.50"
+          },
+          {
+            "name": "Coinsuper",
+            "number": "611.55"
+          },
+          {
+            "name": "UEX",
+            "number": "582.75"
+          },
+          {
+            "name": "IDEX",
+            "number": "528.93"
+          }
+        ]
+      },
+      {
+        "name": "tradingview.com",
+        "total": "28041.86",
+        "eventList": [
+          {
+            "name": "ABCC",
+            "number": "27420.25"
+          },
+          {
+            "name": "Poloniex",
+            "number": "407.52"
+          },
+          {
+            "name": "HitBTC",
+            "number": "81.39"
+          },
+          {
+            "name": "DEx.top",
+            "number": "74.20"
+          },
+          {
+            "name": "YoBit",
+            "number": "58.50"
+          }
+        ]
+      },
+      {
+        "name": "bitcoin.org",
+        "total": "27433.42",
+        "eventList": [
+          {
+            "name": "Gemini",
+            "number": "8980.62"
+          },
+          {
+            "name": "Bittylicious",
+            "number": "4019.68"
+          },
+          {
+            "name": "itBit",
+            "number": "2971.32"
+          },
+          {
+            "name": "CoinCorner",
+            "number": "1566.63"
+          },
+          {
+            "name": "Coinfloor",
+            "number": "1437.15"
+          },
+          {
+            "name": "Kraken",
+            "number": "1211.73"
+          },
+          {
+            "name": "Bisq",
+            "number": "1096.64"
+          },
+          {
+            "name": "Luno",
+            "number": "882.45"
+          },
+          {
+            "name": "BL3P",
+            "number": "868.59"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "770.89"
+          }
+        ]
+      },
+      {
+        "name": "worldcoinindex.com",
+        "total": "27292.21",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "5148.95"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "1622.88"
+          },
+          {
+            "name": "Bittrex",
+            "number": "1547.00"
+          },
+          {
+            "name": "BitForex",
+            "number": "1411.41"
+          },
+          {
+            "name": "Livecoin",
+            "number": "1190.34"
+          },
+          {
+            "name": "Mercatox",
+            "number": "1064.89"
+          },
+          {
+            "name": "Graviex",
+            "number": "811.44"
+          },
+          {
+            "name": "CryptoBridge",
+            "number": "789.67"
+          },
+          {
+            "name": "Kraken",
+            "number": "781.53"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "741.52"
+          }
+        ]
+      },
+      {
+        "name": "hadax.com",
+        "total": "26435.25",
+        "eventList": [
+          {
+            "name": "Huobi",
+            "number": "25867.66"
+          },
+          {
+            "name": "HBUS",
+            "number": "567.59"
+          }
+        ]
+      },
+      {
+        "name": "coinsutra.com",
+        "total": "25360.06",
+        "eventList": [
+          {
+            "name": "CEX.IO",
+            "number": "4500.00"
+          },
+          {
+            "name": "Binance",
+            "number": "4177.45"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "2666.62"
+          },
+          {
+            "name": "IDEX",
+            "number": "1586.79"
+          },
+          {
+            "name": "Kucoin",
+            "number": "1407.94"
+          },
+          {
+            "name": "Gate.io",
+            "number": "1380.16"
+          },
+          {
+            "name": "Radar Relay",
+            "number": "1334.75"
+          },
+          {
+            "name": "Kraken",
+            "number": "1018.14"
+          },
+          {
+            "name": "Huobi",
+            "number": "983.32"
+          },
+          {
+            "name": "Bittrex",
+            "number": "841.75"
+          }
+        ]
+      },
+      {
+        "name": "hbg.com",
+        "total": "22949.46",
+        "eventList": [
+          {
+            "name": "HADAX",
+            "number": "18940.46"
+          },
+          {
+            "name": "HBUS",
+            "number": "4009.00"
+          }
+        ]
+      },
+      {
+        "name": "myfeed4u.tv",
+        "total": "22247.35",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "22247.35"
+          }
+        ]
+      },
+      {
+        "name": "stocks.exchange",
+        "total": "20666.45",
+        "eventList": [
+          {
+            "name": "STEX",
+            "number": "20666.45"
+          }
+        ]
+      },
+      {
+        "name": "offlintab.firefoxchina.cn",
+        "total": "19450.64",
+        "eventList": [
+          {
+            "name": "Bitfinex",
+            "number": "19450.64"
+          }
+        ]
+      },
+      {
+        "name": "baidu.com",
+        "total": "18252.13",
+        "eventList": [
+          {
+            "name": "Huobi",
+            "number": "8707.14"
+          },
+          {
+            "name": "MBAex",
+            "number": "7128.16"
+          },
+          {
+            "name": "OKEx",
+            "number": "1440.40"
+          },
+          {
+            "name": "Fatbtc",
+            "number": "747.93"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "85.56"
+          },
+          {
+            "name": "CryptoBridge",
+            "number": "81.69"
+          },
+          {
+            "name": "OKCoin International",
+            "number": "61.25"
+          }
+        ]
+      },
+      {
+        "name": "weheartbitcoin.com",
+        "total": "17561.80",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "13503.85"
+          },
+          {
+            "name": "Bleutrade",
+            "number": "1471.52"
+          },
+          {
+            "name": "ABCC",
+            "number": "1216.80"
+          },
+          {
+            "name": "Indodax",
+            "number": "1022.57"
+          },
+          {
+            "name": "Exmo",
+            "number": "347.06"
+          }
+        ]
+      },
+      {
+        "name": "livecoinwatch.com",
+        "total": "16703.65",
+        "eventList": [
+          {
+            "name": "Cryptopia",
+            "number": "3651.48"
+          },
+          {
+            "name": "Binance",
+            "number": "3205.95"
+          },
+          {
+            "name": "IDEX",
+            "number": "1998.18"
+          },
+          {
+            "name": "HitBTC",
+            "number": "1329.37"
+          },
+          {
+            "name": "DDEX",
+            "number": "854.59"
+          },
+          {
+            "name": "FreiExchange",
+            "number": "664.44"
+          },
+          {
+            "name": "OKEx",
+            "number": "520.76"
+          },
+          {
+            "name": "STEX",
+            "number": "508.58"
+          },
+          {
+            "name": "Mercatox",
+            "number": "500.37"
+          },
+          {
+            "name": "CryptoBridge",
+            "number": "462.91"
+          }
+        ]
+      },
+      {
+        "name": "huobi.br.com",
+        "total": "16446.82",
+        "eventList": [
+          {
+            "name": "Huobi",
+            "number": "16446.82"
+          }
+        ]
+      },
+      {
+        "name": "cryptoknight.cc",
+        "total": "16037.83",
+        "eventList": [
+          {
+            "name": "TradeOgre",
+            "number": "12262.50"
+          },
+          {
+            "name": "Bittrex",
+            "number": "1751.75"
+          },
+          {
+            "name": "Crex24",
+            "number": "1490.76"
+          },
+          {
+            "name": "Livecoin",
+            "number": "420.12"
+          },
+          {
+            "name": "Graviex",
+            "number": "112.70"
+          }
+        ]
+      },
+      {
+        "name": "gincoin.io",
+        "total": "15215.76",
+        "eventList": [
+          {
+            "name": "CryptoBridge",
+            "number": "11654.44"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "3561.32"
+          }
+        ]
+      },
+      {
+        "name": "zamunda.net",
+        "total": "15130.27",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "13115.25"
+          },
+          {
+            "name": "Exmo",
+            "number": "2015.02"
+          }
+        ]
+      },
+      {
+        "name": "yandex.ru",
+        "total": "14404.98",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "2914.50"
+          },
+          {
+            "name": "YoBit",
+            "number": "2141.10"
+          },
+          {
+            "name": "Exmo",
+            "number": "1724.94"
+          },
+          {
+            "name": "Poloniex",
+            "number": "1199.92"
+          },
+          {
+            "name": "WEX",
+            "number": "1013.65"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "901.60"
+          },
+          {
+            "name": "Kucoin",
+            "number": "789.82"
+          },
+          {
+            "name": "Bittrex",
+            "number": "750.75"
+          },
+          {
+            "name": "HitBTC",
+            "number": "705.38"
+          },
+          {
+            "name": "BTC-Alpha",
+            "number": "352.44"
           }
         ]
       }
@@ -2423,6 +3855,722 @@
             "number": "2540.58"
           }
         ]
+      },
+      {
+        "name": "vk.com/al_feed.php",
+        "total": "10043.07",
+        "eventList": [
+          {
+            "name": "YoBit",
+            "number": "2000.14"
+          },
+          {
+            "name": "Binance",
+            "number": "1650.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "1025.92"
+          },
+          {
+            "name": "WEX",
+            "number": "785.32"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "760.35"
+          },
+          {
+            "name": "Poloniex",
+            "number": "711.51"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "573.04"
+          },
+          {
+            "name": "Exmo",
+            "number": "528.84"
+          },
+          {
+            "name": "Kuna",
+            "number": "277.10"
+          },
+          {
+            "name": "HitBTC",
+            "number": "273.90"
+          }
+        ]
+      },
+      {
+        "name": "facebook.com/photo.php",
+        "total": "9401.66",
+        "eventList": [
+          {
+            "name": "Kucoin",
+            "number": "1314.90"
+          },
+          {
+            "name": "Mercatox",
+            "number": "813.51"
+          },
+          {
+            "name": "IDEX",
+            "number": "759.51"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "719.25"
+          },
+          {
+            "name": "Gate.io",
+            "number": "599.64"
+          },
+          {
+            "name": "Hotbit",
+            "number": "583.22"
+          },
+          {
+            "name": "HitBTC",
+            "number": "485.55"
+          },
+          {
+            "name": "Bittrex",
+            "number": "384.72"
+          },
+          {
+            "name": "BX Thailand",
+            "number": "377.13"
+          },
+          {
+            "name": "CEX.IO",
+            "number": "355.41"
+          }
+        ]
+      },
+      {
+        "name": "twitter.com/DaoCoinTech",
+        "total": "8691.04",
+        "eventList": [
+          {
+            "name": "Poloniex",
+            "number": "2846.04"
+          },
+          {
+            "name": "Binance",
+            "number": "2640.00"
+          },
+          {
+            "name": "BtcTurk",
+            "number": "1905.94"
+          },
+          {
+            "name": "YoBit",
+            "number": "1299.06"
+          }
+        ]
+      },
+      {
+        "name": "ok.ru/feed",
+        "total": "8497.42",
+        "eventList": [
+          {
+            "name": "YoBit",
+            "number": "1484.64"
+          },
+          {
+            "name": "Binance",
+            "number": "1430.00"
+          },
+          {
+            "name": "Poloniex",
+            "number": "903.81"
+          },
+          {
+            "name": "Exmo",
+            "number": "671.22"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "661.20"
+          },
+          {
+            "name": "BitBay",
+            "number": "488.88"
+          },
+          {
+            "name": "WEX",
+            "number": "487.44"
+          },
+          {
+            "name": "Bittrex",
+            "number": "448.84"
+          },
+          {
+            "name": "Graviex",
+            "number": "329.16"
+          },
+          {
+            "name": "CEX.IO",
+            "number": "312.33"
+          }
+        ]
+      },
+      {
+        "name": "twitter.com/i/notifications",
+        "total": "8412.62",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "2310.00"
+          },
+          {
+            "name": "CryptoBridge",
+            "number": "1269.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "903.64"
+          },
+          {
+            "name": "OKEx",
+            "number": "757.35"
+          },
+          {
+            "name": "Zaif",
+            "number": "745.80"
+          },
+          {
+            "name": "Bittrex",
+            "number": "480.90"
+          },
+          {
+            "name": "Indodax",
+            "number": "316.16"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "287.70"
+          },
+          {
+            "name": "Liquid",
+            "number": "213.75"
+          },
+          {
+            "name": "Bitbank",
+            "number": "168.36"
+          }
+        ]
+      },
+      {
+        "name": "twitter.com/bitebtccom",
+        "total": "8073.52",
+        "eventList": [
+          {
+            "name": "BiteBTC",
+            "number": "8073.52"
+          }
+        ]
+      },
+      {
+        "name": "twitter.com/simongerman600/status/1035861087709802496",
+        "total": "7186.01",
+        "eventList": [
+          {
+            "name": "HitBTC",
+            "number": "2676.75"
+          },
+          {
+            "name": "Bittrex",
+            "number": "2276.26"
+          },
+          {
+            "name": "Liqui",
+            "number": "2233.00"
+          }
+        ]
+      },
+      {
+        "name": "reddit.com/r/freebies",
+        "total": "6872.40",
+        "eventList": [
+          {
+            "name": "Bitstamp",
+            "number": "3436.20"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "3436.20"
+          }
+        ]
+      },
+      {
+        "name": "away.vk.com/away.php",
+        "total": "6744.34",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "1430.00"
+          },
+          {
+            "name": "Crex24",
+            "number": "1383.48"
+          },
+          {
+            "name": "ABCC",
+            "number": "901.32"
+          },
+          {
+            "name": "Graviex",
+            "number": "654.10"
+          },
+          {
+            "name": "Waves Decentralized Exchange",
+            "number": "451.77"
+          },
+          {
+            "name": "Simex",
+            "number": "337.84"
+          },
+          {
+            "name": "BTC-Alpha",
+            "number": "248.88"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "164.40"
+          },
+          {
+            "name": "HADAX",
+            "number": "130.34"
+          },
+          {
+            "name": "Mercatox",
+            "number": "98.25"
+          }
+        ]
+      },
+      {
+        "name": "vk.com/groups",
+        "total": "6045.75",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "1650.00"
+          },
+          {
+            "name": "YoBit",
+            "number": "1175.34"
+          },
+          {
+            "name": "ABCC",
+            "number": "663.81"
+          },
+          {
+            "name": "Poloniex",
+            "number": "634.59"
+          },
+          {
+            "name": "WEX",
+            "number": "399.43"
+          },
+          {
+            "name": "Bittrex",
+            "number": "256.48"
+          },
+          {
+            "name": "Exmo",
+            "number": "216.96"
+          },
+          {
+            "name": "Gate.io",
+            "number": "205.14"
+          },
+          {
+            "name": "CEX.IO",
+            "number": "204.63"
+          },
+          {
+            "name": "IDEX",
+            "number": "172.26"
+          }
+        ]
+      },
+      {
+        "name": "facebook.com/messages/t/1921488881243057",
+        "total": "6015.97",
+        "eventList": [
+          {
+            "name": "Bittrex",
+            "number": "2853.34"
+          },
+          {
+            "name": "Binance",
+            "number": "1430.00"
+          },
+          {
+            "name": "Gate.io",
+            "number": "1251.88"
+          },
+          {
+            "name": "Poloniex",
+            "number": "480.75"
+          }
+        ]
+      },
+      {
+        "name": "youtube.com/upload",
+        "total": "5731.92",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "2310.00"
+          },
+          {
+            "name": "Kucoin",
+            "number": "672.06"
+          },
+          {
+            "name": "ABCC",
+            "number": "602.91"
+          },
+          {
+            "name": "YoBit",
+            "number": "433.02"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "411.00"
+          },
+          {
+            "name": "IDAX",
+            "number": "383.52"
+          },
+          {
+            "name": "Indodax",
+            "number": "299.52"
+          },
+          {
+            "name": "IDEX",
+            "number": "203.58"
+          },
+          {
+            "name": "Kraken",
+            "number": "131.36"
+          },
+          {
+            "name": "WEX",
+            "number": "74.47"
+          }
+        ]
+      },
+      {
+        "name": "reddit.com/r/CryptoCurrency",
+        "total": "5043.80",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "1650.00"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "1225.08"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "1225.08"
+          },
+          {
+            "name": "Kucoin",
+            "number": "233.76"
+          },
+          {
+            "name": "Liquid",
+            "number": "191.25"
+          },
+          {
+            "name": "Waves Decentralized Exchange",
+            "number": "179.08"
+          },
+          {
+            "name": "QuadrigaCX",
+            "number": "140.80"
+          },
+          {
+            "name": "Bibox",
+            "number": "138.04"
+          },
+          {
+            "name": "Graviex",
+            "number": "35.87"
+          },
+          {
+            "name": "Bitbns",
+            "number": "24.84"
+          }
+        ]
+      },
+      {
+        "name": "facebook.com/search/top",
+        "total": "4980.16",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "770.00"
+          },
+          {
+            "name": "Bittrex",
+            "number": "737.38"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "472.65"
+          },
+          {
+            "name": "Poloniex",
+            "number": "442.29"
+          },
+          {
+            "name": "Kucoin",
+            "number": "350.64"
+          },
+          {
+            "name": "Kraken",
+            "number": "328.40"
+          },
+          {
+            "name": "OKEx",
+            "number": "287.10"
+          },
+          {
+            "name": "HitBTC",
+            "number": "273.90"
+          },
+          {
+            "name": "CEX.IO",
+            "number": "258.48"
+          },
+          {
+            "name": "LiteBit.eu",
+            "number": "256.19"
+          }
+        ]
+      },
+      {
+        "name": "weibo.com/u/3318976911/home",
+        "total": "4908.47",
+        "eventList": [
+          {
+            "name": "Huobi",
+            "number": "4388.72"
+          },
+          {
+            "name": "OKEx",
+            "number": "519.75"
+          }
+        ]
+      },
+      {
+        "name": "stackoverflow.com/questions/3192088/how-to-connect-to-localhost-with-sshputty",
+        "total": "4813.58",
+        "eventList": [
+          {
+            "name": "Token Store",
+            "number": "1627.02"
+          },
+          {
+            "name": "Hotbit",
+            "number": "1226.69"
+          },
+          {
+            "name": "IDEX",
+            "number": "1072.71"
+          },
+          {
+            "name": "Liquid",
+            "number": "540.00"
+          },
+          {
+            "name": "Gate.io",
+            "number": "347.16"
+          }
+        ]
+      },
+      {
+        "name": "youtube.com/dashboard",
+        "total": "4759.33",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "1210.00"
+          },
+          {
+            "name": "Indodax",
+            "number": "648.96"
+          },
+          {
+            "name": "Poloniex",
+            "number": "576.90"
+          },
+          {
+            "name": "ABCC",
+            "number": "475.02"
+          },
+          {
+            "name": "Kraken",
+            "number": "328.40"
+          },
+          {
+            "name": "IDEX",
+            "number": "289.71"
+          },
+          {
+            "name": "WEX",
+            "number": "236.95"
+          },
+          {
+            "name": "YoBit",
+            "number": "206.20"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "176.32"
+          },
+          {
+            "name": "HitBTC",
+            "number": "174.30"
+          }
+        ]
+      },
+      {
+        "name": "vk.com/al_im.php",
+        "total": "4553.14",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "990.00"
+          },
+          {
+            "name": "Exmo",
+            "number": "678.00"
+          },
+          {
+            "name": "YoBit",
+            "number": "556.74"
+          },
+          {
+            "name": "Cryptopia",
+            "number": "390.45"
+          },
+          {
+            "name": "Poloniex",
+            "number": "249.99"
+          },
+          {
+            "name": "Bittrex",
+            "number": "224.42"
+          },
+          {
+            "name": "HitBTC",
+            "number": "199.20"
+          },
+          {
+            "name": "TradeOgre",
+            "number": "168.96"
+          },
+          {
+            "name": "Graviex",
+            "number": "130.82"
+          },
+          {
+            "name": "WEX",
+            "number": "128.63"
+          }
+        ]
+      },
+      {
+        "name": "quora.com",
+        "total": "4472.32",
+        "eventList": [
+          {
+            "name": "CEX.IO",
+            "number": "1303.17"
+          },
+          {
+            "name": "Bitstamp",
+            "number": "747.00"
+          },
+          {
+            "name": "Bitstamp (Ripple Gateway)",
+            "number": "747.00"
+          },
+          {
+            "name": "Luno",
+            "number": "485.52"
+          },
+          {
+            "name": "Kraken",
+            "number": "394.08"
+          },
+          {
+            "name": "Liquid",
+            "number": "337.50"
+          },
+          {
+            "name": "Kucoin",
+            "number": "292.20"
+          },
+          {
+            "name": "Koinex",
+            "number": "165.85"
+          }
+        ]
+      },
+      {
+        "name": "youtube.com/my_videos",
+        "total": "4193.75",
+        "eventList": [
+          {
+            "name": "Binance",
+            "number": "2420.00"
+          },
+          {
+            "name": "Exmo",
+            "number": "562.74"
+          },
+          {
+            "name": "HitBTC",
+            "number": "336.15"
+          },
+          {
+            "name": "Mercatox",
+            "number": "286.89"
+          },
+          {
+            "name": "Mercado Bitcoin",
+            "number": "244.75"
+          },
+          {
+            "name": "YoBit",
+            "number": "185.58"
+          },
+          {
+            "name": "Indodax",
+            "number": "49.92"
+          },
+          {
+            "name": "C-CEX",
+            "number": "44.89"
+          },
+          {
+            "name": "Waves Decentralized Exchange",
+            "number": "36.63"
+          },
+          {
+            "name": "Bleutrade",
+            "number": "26.20"
+          }
+        ]
       }
     ]
   },
@@ -2694,6 +4842,210 @@
           {
             "name": "CoinsBank",
             "number": "333.71"
+          }
+        ]
+      },
+      {
+        "name": "cointiply.com",
+        "total": "1587.72",
+        "eventList": [
+          {
+            "name": "Kucoin",
+            "number": "1587.72"
+          }
+        ]
+      },
+      {
+        "name": "finder.com",
+        "total": "1571.90",
+        "eventList": [
+          {
+            "name": "Independent Reserve",
+            "number": "1000.00"
+          },
+          {
+            "name": "Bitfinex",
+            "number": "571.90"
+          }
+        ]
+      },
+      {
+        "name": "lyon.kim",
+        "total": "1550.00",
+        "eventList": [
+          {
+            "name": "Bitso",
+            "number": "1550.00"
+          }
+        ]
+      },
+      {
+        "name": "bitcointalk.org",
+        "total": "1400.00",
+        "eventList": [
+          {
+            "name": "HitBTC",
+            "number": "1400.00"
+          }
+        ]
+      },
+      {
+        "name": "bitcoin.com",
+        "total": "1366.29",
+        "eventList": [
+          {
+            "name": "CoinsBank",
+            "number": "1366.29"
+          }
+        ]
+      },
+      {
+        "name": "navigator.gmx.net",
+        "total": "1100.00",
+        "eventList": [
+          {
+            "name": "Bittrex",
+            "number": "1100.00"
+          }
+        ]
+      },
+      {
+        "name": "minkabu.jp",
+        "total": "1094.31",
+        "eventList": [
+          {
+            "name": "Liquid",
+            "number": "1094.31"
+          }
+        ]
+      },
+      {
+        "name": "bsai.io",
+        "total": "1093.95",
+        "eventList": [
+          {
+            "name": "Bitkub",
+            "number": "1093.95"
+          }
+        ]
+      },
+      {
+        "name": "mylot.com",
+        "total": "1059.63",
+        "eventList": [
+          {
+            "name": "Bitkub",
+            "number": "1059.63"
+          }
+        ]
+      },
+      {
+        "name": "cc.minkabu.jp",
+        "total": "1015.74",
+        "eventList": [
+          {
+            "name": "Bitbank",
+            "number": "1015.74"
+          }
+        ]
+      },
+      {
+        "name": "coingecko.com",
+        "total": "1000.00",
+        "eventList": [
+          {
+            "name": "Altcoin Trader",
+            "number": "1000.00"
+          }
+        ]
+      },
+      {
+        "name": "pornhub.com",
+        "total": "1000.00",
+        "eventList": [
+          {
+            "name": "Cryptonex",
+            "number": "1000.00"
+          }
+        ]
+      },
+      {
+        "name": "mynet.com",
+        "total": "1000.00",
+        "eventList": [
+          {
+            "name": "Coindeal",
+            "number": "1000.00"
+          }
+        ]
+      },
+      {
+        "name": "mega-xxx.net",
+        "total": "940.80",
+        "eventList": [
+          {
+            "name": "Coinroom",
+            "number": "940.80"
+          }
+        ]
+      },
+      {
+        "name": "minfin.com.ua",
+        "total": "888.90",
+        "eventList": [
+          {
+            "name": "Kuna",
+            "number": "888.90"
+          }
+        ]
+      },
+      {
+        "name": "fr-mg42.mail.yahoo.com",
+        "total": "863.10",
+        "eventList": [
+          {
+            "name": "LiteBit.eu",
+            "number": "863.10"
+          }
+        ]
+      },
+      {
+        "name": "crypto-coinz.net",
+        "total": "857.10",
+        "eventList": [
+          {
+            "name": "LATOKEN",
+            "number": "857.10"
+          }
+        ]
+      },
+      {
+        "name": "kakaku.com",
+        "total": "773.52",
+        "eventList": [
+          {
+            "name": "Bitbank",
+            "number": "773.52"
+          }
+        ]
+      },
+      {
+        "name": "seiyablog.com",
+        "total": "773.52",
+        "eventList": [
+          {
+            "name": "Bitbank",
+            "number": "773.52"
+          }
+        ]
+      },
+      {
+        "name": "worldcoinindex.com",
+        "total": "757.35",
+        "eventList": [
+          {
+            "name": "Luno",
+            "number": "757.35"
           }
         ]
       }

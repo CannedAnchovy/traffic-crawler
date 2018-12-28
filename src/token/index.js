@@ -1,4 +1,4 @@
 import 'babel-polyfill';
-import main from './cob';
+import main from './ntv';
 
 main();

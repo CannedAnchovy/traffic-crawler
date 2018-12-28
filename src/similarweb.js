@@ -69,10 +69,12 @@ async function signInSimilarWeb(driver, type) {
  * @param {object} crawlList An object containing crawler status and list data.
  * @param {func} getData function that returns data segment in the crawlList data structure
  * @param {string} fileName output fileName
+ * @param {string} timeIntervalString time
  */
-export async function crawlListTraffic(driver, crawlList, getData, fileName) {
+export async function crawlListTraffic(driver, crawlList, getData, fileName, timeIntervalString) {
   console.log('Crawl traffic from similar web...');
 
+  if (timeIntervalString) timeInterval = timeIntervalString;
   let item;
   let list = getData(crawlList);
   await signInSimilarWeb(driver, 'google');
@@ -85,8 +87,9 @@ export async function crawlListTraffic(driver, crawlList, getData, fileName) {
 
     console.log('Crawling ' + item.name + ' traffic...');
     item.traffic = await getTraffic(driver, getDomainName(item.url));
-    await writeFile(fileName, JSON.stringify(crawlList, null, 2));
+    if (i%5 == 4) await writeFile(fileName, JSON.stringify(crawlList, null, 2));
   }
+  await writeFile(fileName, JSON.stringify(crawlList, null, 2));
 }
 
 /**
@@ -538,7 +541,7 @@ async function searchDomain(driver, domain) {
   let searchElement = await driver.findElement(By.css('input.universalInput-input'));
   await searchElement.click();
   await searchElement.sendKeys(domain);
-  await sleep(3000);
+  await sleep(500);
   await searchElement.sendKeys(Key.ENTER);
   await driver.wait(until.elementLocated(By.css('div.website-header-title')), waitTime);
   let url = await driver.getCurrentUrl();
