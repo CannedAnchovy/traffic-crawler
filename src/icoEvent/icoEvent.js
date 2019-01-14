@@ -188,7 +188,7 @@ async function crawlICOEventFromICODrop(driver) {
 
   // get each ico event end date and website url from their icoUrl page
   let lastMonthString = '';
-  let year = 2018;
+  let year = 2019;
   let cropNum;
   for (let i=0; i<icoEventList.length; i++) {
     let icoEvent = icoEventList[i];

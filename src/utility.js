@@ -36,6 +36,10 @@ export function getMillion(string) {
  * @return {string} Domain name.
  */
 export function getDomainName(url) {
+  // if url is not in http:// form
+  if (url.slice(0, 4) != 'http') {
+    return url.split('/')[0];
+  }
   return url.split('/')[2];
 }
 

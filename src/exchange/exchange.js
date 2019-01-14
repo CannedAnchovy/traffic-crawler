@@ -13,7 +13,7 @@ import { sleep } from '../utility';
  * @return {string} the name of the file stored all the data
  */
 async function crawlExchange(source) {
-  let fileName = 'data/exchanges(2018-Nov)';
+  let fileName = 'data/exchanges(2018-Dec)';
   let exchangeList;
 
   console.log('I am exchange crawler. Hi~');
@@ -176,6 +176,22 @@ async function crawlExchangeListFromCMC(driver) {
     item.tradingVolume24hr = await tradeVolumeElement.getAttribute('data-usd');
 
     console.log(item);
+  }
+
+  // add exchange that is not on cmc
+  let data = await readFile('src/exchange/exchangeList', 'utf-8');
+  data = data.split('\n');
+  for (let i=0; i<data.length; i++) {
+    if (data[i] !== '') {
+      let exchange = {};
+      exchange.name = data[i];
+      exchange.rank = '-';
+      exchange.cmcUrl = '-';
+      exchange.url = data[i];
+      exchange.tradingVolume24hr = '-';
+
+      list.push(exchange);
+    }
   }
 
   return list;

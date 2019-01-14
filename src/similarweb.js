@@ -86,6 +86,15 @@ export async function crawlListTraffic(driver, crawlList, getData, fileName, tim
     item = list[i];
 
     console.log('Crawling ' + item.name + ' traffic...');
+
+    if (getDomainName(item.url) === 'dappradar.com') {
+      await driver.get(item.url);
+      await sleep(3000);
+      item.url = await driver.getCurrentUrl();
+      await driver.get('https://pro.similarweb.com/#/home/modules');
+      await driver.wait(until.titleIs('SimilarWeb Home'), 100000);
+    }
+
     item.traffic = await getTraffic(driver, getDomainName(item.url));
     if (i%5 == 4) await writeFile(fileName, JSON.stringify(crawlList, null, 2));
   }
@@ -116,6 +125,7 @@ export async function getTraffic(driver, domain) {
   //
   try {
     domain = await searchDomain(driver, domain);
+
     // await setTimeInterval(driver, 'Last 6 Months');
 
     // get totalVisit
@@ -130,12 +140,12 @@ export async function getTraffic(driver, domain) {
       return traffic;
     }
 
-    if (traffic.totalVisit === '< 5,000') {
-      await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
-      console.log('This domain has no following data.');
+    //if (traffic.totalVisit === '< 5,000') {
+    //  await driver.get('https://pro.similarweb.com/#/website/worldwide-overview/' + domain + '/*/999/' + timeInterval + '?webSource=Total');
+    /*  console.log('This domain has no following data.');
       traffic.success = true;
       return traffic;
-    }
+    }*/
 
 
     // get marketingMix
@@ -257,7 +267,7 @@ async function getMarketingMix(driver, domain) {
 
   // get chart and buttons
   let chartElement = await driver.wait(until.elementLocated(By.css('div.swWidget-frame.swWidget-frame--noBottomPadding')), waitTime);
-  let buttonElements = await chartElement.findElements(By.css('button.sc-iBEsjs'));
+  let buttonElements = await chartElement.findElements(By.css('button.sc-fQejPQ'));
   let text;
   let marketingMix = {
     channelTraffic: '',

@@ -225,6 +225,143 @@ function getExchangeToCsvString(exchange) {
 }
 
 /**
+ * transform dappList to csv string format
+ * @param {object} dappList Data structure that stores many dapp info
+ * @return {string} dappList in csv string format
+ */
+export function dappListToCsvString(dappList) {
+  let string = '';
+  string = getDappHeaderCsvString();
+
+  for (let i=0; i<dappList.data.length; i++) {
+    string += getDappToCsvString(dappList.data[i]);
+  }
+
+  return string;
+}
+
+/**
+ * Generate dapp header in csv string format
+ * @return {string} dapp header in csv string format
+ */
+function getDappHeaderCsvString() {
+  let header = new Array(35).fill('');
+  header[0] = doubleQuote('Dapp Name');
+  header[1] = doubleQuote('Rank');
+  header[2] = doubleQuote('Category');
+  header[3] = doubleQuote('Chain');
+  header[4] = doubleQuote('Website');
+  header[5] = doubleQuote('DappRadar Website');
+  header[6] = doubleQuote('Balance');
+  header[7] = doubleQuote('User(24h)');
+  header[8] = doubleQuote('Volume(24h)');
+  header[9] = doubleQuote('Volume(7d)');
+  header[10] = doubleQuote('Tx(24h)');
+  header[11] = doubleQuote('Tx(7d)');
+
+  header[12] = doubleQuote('Total Visit');
+  header[13] = doubleQuote('Channel Traffic');
+
+  header[14] = doubleQuote('Direct Traffic');
+  header[17] = doubleQuote('Email Traffic');
+  header[20] = doubleQuote('Referral Traffic');
+  header[23] = doubleQuote('Social Traffic');
+  header[26] = doubleQuote('Organic Traffic');
+  header[29] = doubleQuote('Paid Search Traffic');
+  header[32] = doubleQuote('Ads Traffic');
+
+  return header.join(',') + '\n';
+}
+
+/**
+ * transform dapp to csv string format
+ * @param {object} dapp Data structure that stores info about dapp.
+ * @return {string} exchangein csv string format
+ */
+function getDappToCsvString(dapp) {
+  let lines = new Array(6).fill(new Array(35).fill('\"\"'));
+
+  // important!!!!
+  // js array is default pass by reference
+  lines = JSON.parse(JSON.stringify(lines));
+  let rankNum;
+
+  // convert basic info
+  lines[0][0] = doubleQuote(dapp.name);
+  lines[0][1] = doubleQuote(Number(dapp.rank));
+  lines[0][2] = doubleQuote(dapp.category);
+  lines[0][3] = doubleQuote(dapp.chain);
+  lines[0][4] = doubleQuote(dapp.url);
+  lines[0][5] = doubleQuote(dapp.radarUrl);
+  lines[0][6] = doubleQuote(dapp.balance);
+  lines[0][7] = doubleQuote(dapp.user24h);
+  lines[0][8] = doubleQuote(dapp.volume24h);
+  lines[0][9] = doubleQuote(dapp.volume7d);
+  lines[0][10] = doubleQuote(dapp.tx24h);
+  lines[0][11] = doubleQuote(dapp.tx7d);
+
+
+  lines[0][12] = doubleQuote(dapp.traffic.totalVisit);
+  lines[0][13] = doubleQuote(dapp.traffic.marketingMix.channelTraffic);
+
+  // console.log(1);
+
+  // convert marketing mix
+
+  if (Object.keys(dapp.traffic.marketingMix).length !== 0) {
+    for (let i=0; i<7; i++) {
+      lines[0][14 + i*3] = doubleQuote(dapp.traffic.marketingMix.percentages[i]);
+      lines[0][14 + i*3 + 2] = doubleQuote(dapp.traffic.marketingMix.numbers[i]);
+    }
+  }
+
+  // console.log(2);
+
+  // convert geography rank
+  rankNum = (dapp.traffic.geographyRank.length > 5)? 5 : dapp.traffic.geographyRank.length;
+  for (let i=0; i<rankNum; i++) {
+    lines[i+1][14] = doubleQuote(dapp.traffic.geographyRank[i].name);
+    lines[i+1][15] = doubleQuote(dapp.traffic.geographyRank[i].percentage);
+    lines[i+1][16] = doubleQuote(dapp.traffic.geographyRank[i].number);
+  }
+
+  // console.log(3);
+
+  // convert referral rank
+  rankNum = (dapp.traffic.referralRank.length > 5)? 5 : dapp.traffic.referralRank.length;
+  for (let i=0; i<rankNum; i++) {
+    lines[i+1][20] = doubleQuote(dapp.traffic.referralRank[i].name);
+    lines[i+1][21] = doubleQuote(dapp.traffic.referralRank[i].percentage);
+    lines[i+1][22] = doubleQuote(dapp.traffic.referralRank[i].number);
+  }
+
+  // console.log(4);
+
+  // convert social rank
+  rankNum = (dapp.traffic.socialRank.length > 5)? 5 : dapp.traffic.socialRank.length;
+  for (let i=0; i<rankNum; i++) {
+    lines[i+1][23] = doubleQuote(dapp.traffic.socialRank[i].name);
+    lines[i+1][24] = doubleQuote(dapp.traffic.socialRank[i].percentage);
+    lines[i+1][25] = doubleQuote(dapp.traffic.socialRank[i].number);
+  }
+
+  // console.log(5);
+
+  // convert ad rank
+  rankNum = (dapp.traffic.adRank.length > 5)? 5 : dapp.traffic.adRank.length;
+  for (let i=0; i<rankNum; i++) {
+    lines[i+1][32] = doubleQuote(dapp.traffic.adRank[i].name);
+    lines[i+1][33] = doubleQuote(dapp.traffic.adRank[i].percentage);
+    lines[i+1][34] = doubleQuote(dapp.traffic.adRank[i].number);
+  }
+
+  // console.log(6);
+
+  return linesToString(lines);
+}
+
+
+/**
  * transform rankStatisticList to csv string format
  * @param {array} rankStatisticList An array containing rankStatistic
  * @return {string} rankStatisticList in csv string format
